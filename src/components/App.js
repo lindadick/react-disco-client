@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import { Container, Menu, Header } from 'semantic-ui-react'
 
 import Current from './Current';
 import TrackSearch from './TrackSearch';
@@ -10,19 +10,35 @@ import Playlists from './Playlists';
 import History from './History';
 import Admin from './Admin';
 
-export class App extends React.Component {
+class AppMenu extends Component {
+  state = {}
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render() {
+    const { activeItem } = this.state
+
+    return (
+      <Menu stackable inverted>
+        <Menu.Item href='/' name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>Now Playing</Menu.Item>
+        <Menu.Item href='#/search' name='search' active={activeItem === 'search'} onClick={this.handleItemClick}>Tracks</Menu.Item>
+        <Menu.Item href='#/albums' name='albums' active={activeItem === 'albums'} onClick={this.handleItemClick}>Albums</Menu.Item>
+        {/* <Menu.Item href='#/playlists' name='playlists' active={activeItem === 'playlists'} onClick={this.handleItemClick}>Playlists</Menu.Item> */}
+        {/* <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item> */}
+        {/* <Menu.Item href='#/admin' name='admin' active={activeItem === 'admin'} onClick={this.handleItemClick}>Admin</Menu.Item> */}
+      </Menu>
+    )
+  }
+}
+
+export default class App extends React.Component {
   render() {
     return (
-      <div>
+      <Container>
         <Header size="huge">Robinet Disco</Header>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#/search">Tracks</a></li>
-          <li><a href="#/albums">Albums</a></li>
-          <li><a href="#/playlists">Playlists</a></li>
-          <li><a href="#/history">History</a></li>
-          <li><a href="#/admin">Admin</a></li>
-        </ul>
+
+        <AppMenu/>
+
         <Switch>
           <Route exact path="/" component={Current} />
           <Route path="/search" component={TrackSearch} />
@@ -31,9 +47,7 @@ export class App extends React.Component {
           <Route path="/history" component={History} />
           <Route path="/admin" component={Admin} />
         </Switch>
-      </div>
+      </Container>
     );
   }
 }
-
-export default App;

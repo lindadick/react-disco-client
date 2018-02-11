@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Popup } from 'semantic-ui-react';
 
 import disco from '../lib/disco';
 
@@ -19,11 +19,6 @@ export class Album extends Component {
         return (
             <Grid.Row columns={5}>
                 <Grid.Column>
-                    {this.props.options['addToPlaylist'] ? (
-                    <Button onClick={this.addToCurrentPlaylist} icon="add" />
-                    ) : null} 
-                </Grid.Column>
-                <Grid.Column>
                     <span>{this.props.artist}</span>
                 </Grid.Column>
                 <Grid.Column>
@@ -34,6 +29,11 @@ export class Album extends Component {
                 </Grid.Column>
                 <Grid.Column>
                     <span>{this.props.track_count}</span>
+                </Grid.Column>
+                <Grid.Column>
+                    {this.props.options['addToPlaylist'] ? (
+                    <Popup trigger={<Button icon="add" onClick={this.addToCurrentPlaylist} />} content="Add album to current playlist" on='hover' />
+                    ) : null} 
                 </Grid.Column>
             </Grid.Row>
         )

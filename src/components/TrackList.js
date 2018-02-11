@@ -5,7 +5,7 @@ import { SortableContainer } from 'react-sortable-hoc';
 
 export const TrackList = SortableContainer(({tracks, options}) => {
     return (
-        <Grid>
+        <Grid divided="vertically">
             {tracks.map((track, i) =>
                 <SortableTrack key={`item-${i}`} options={options} index={i} {...track}/>	
                 )}

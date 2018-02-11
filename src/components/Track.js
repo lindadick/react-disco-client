@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import disco from '../lib/disco';
 import {SortableElement, SortableHandle} from 'react-sortable-hoc';
-import { Button, Grid, Icon } from 'semantic-ui-react';
+import { Button, Grid, Icon, Popup } from 'semantic-ui-react';
 
 const DragHandle = SortableHandle(() => <Icon name="move" label="Reorder Tracks" />);
 
@@ -12,14 +12,12 @@ export class Track extends Component {
         
         // Store shortlist value as state, so it can be changed.
         this.state = {
-            status: this.props.status
+            shortlist: false
         };
 
         this.addToCurrentPlaylist = this.addToCurrentPlaylist.bind(this);
-        this.removeFromShortlist = this.removeFromShortlist.bind(this);
-        this.toggleShortlist = this.toggleShortlist.bind(this);
-        this.addToShortlist = this.addToShortlist.bind(this);
         this.removeFromCurrentPlaylist = this.removeFromCurrentPlaylist.bind(this);
+        this.toggleShortlist = this.toggleShortlist.bind(this);
     }
 
     addToCurrentPlaylist() {
@@ -29,45 +27,34 @@ export class Track extends Component {
     }
     
     removeFromCurrentPlaylist() {
-        console.log(this.props);
         disco.removeTrackFromCurrentPlaylist(this.props.album_id, this.props.track_id);
     }
 
-    addToShortlist() {
-        disco.addTrackToShortlist(this.props.album_id, this.props.track_id);
-        this.state.status = 'S';
-    }
-
-    removeFromShortlist() {
-        disco.removeTrackFromShortlist(this.props.album_id, this.props.track_id);
-        this.state.status = '-';
-    }
-
     toggleShortlist() {
-        if (this.state.status == '-') {
+        if (!this.state.shortlist) {
+            // TODO wait for result before changing toggle?
             disco.addTrackToShortlist(this.props.album_id, this.props.track_id);
-            this.state.status = 'S';                
+            this.state.shortlist = true;
         } else {
             disco.removeTrackFromShortlist(this.props.album_id, this.props.track_id);
-            this.state.status = '-';
+            this.state.shortlist = false;
         }
     }
     
-    next() {
+    skipCurrentTrack() {
         disco.skipToNextTrack();
     }
       
     render() {
-
         // Build menu options
         let buttons = [];
         let icons = [];
-        let iconToggles = [];
+        let buttonToggles = [];
 
         if (this.props.options['addToPlaylist'] && this.props.online) {
             buttons.push({
                 onClick: this.addToCurrentPlaylist,
-                label: "Add to playlist",
+                popup: "Add to playlist",
                 icon: "add"
             })
         }
@@ -75,75 +62,74 @@ export class Track extends Component {
         if (this.props.options['removeFromPlaylist']) {
             buttons.push({
                 onClick: this.removeFromCurrentPlaylist,
-                label: "Remove from playlist",
+                popup: "Remove from playlist",
                 icon: "delete"
+            })
+        }
+
+        if (this.props.options['skip']) {
+            buttons.push({
+                onClick: this.skipCurrentTrack,
+                popup: "Skip this track",
+                icon: "step forward"
             })
         }
 
         if (!this.props.online) {
             icons.push({
-                label: "Track is currently offline",
+                popup: "This track is currently offline",
                 icon: "dont"
             });
         } else {
-            iconToggles.push({
-                onChange: this.toggleShortlist,
+            this.state.shortlist = this.props.shortlist;
+            buttonToggles.push({
+                onClick: this.toggleShortlist,
+                popup: "Toggle shortlist status",
                 icon: 'heart',
-                active: this.state.status == 'S'
+                active: this.state.shortlist
             });
         }
 
-        if (this.props.displayInTable) {
-            let numOptions = buttons.length + icons.length + iconToggles.length;
+        let numOptions = buttons.length + icons.length + buttonToggles.length;
+        let numColumns = 2;
 
-            let phoneSpan = 4 - numOptions;
-            let tabletSpan = 7 - numOptions;
-            let desktopSpan = 12 - numOptions;
+        let optionsWidth = numOptions; // TODO figure out why this needs to be larger to accommodate phones
+        let trackWidth = 16 - optionsWidth;
 
-            if (this.props.options['sortable']) {
-                phoneSpan--;
-                tabletSpan--;
-                desktopSpan--;
-            }
-
-            return (
-                <Grid.Row columns={3}>
-                    { this.props.options['sortable'] ? (
-                    <Grid.Column>
-                        <DragHandle />
-                    </Grid.Column>
-                    ) : null }
-                    <Grid.Column>
-                        {this.props.title}<br/>
-                        {this.props.artist}<br/>
-                        {this.props.album_title}
-                    </Grid.Column>
-                    <Grid.Column>
-                        {buttons.map((option, i) =>
-                            <Button key={i} onClick={option.onClick} icon={option.icon} />	
-                        )}
-                        {icons.map((option, i) =>
-                            <Icon key={i} label={option.label} name={option.icon} />	
-                        )}
-                        {iconToggles.map((option, i) =>
-                            <Button toggle active={option.active} key={i} onClick={option.onChange} icon={option.icon} />
-                        )}
-                    </Grid.Column>
-                </Grid.Row>
-            )
-        } else {
-            return ( 
-                <span>
-                    <span>{this.props.artist}</span> - <span>{this.props.title}</span>
-                    <span> <em>(from the album '{this.props.album_title}')</em></span>
-                </span>
-            );
+        if (this.props.options['sortable']) {
+            trackWidth = trackWidth - 2;
+            numColumns = 3;
         }
-    }
-}
 
-Track.defaultProps = {
-    displayInTable: true
-};
+        return (
+            <Grid.Row columns={numColumns}>
+                { this.props.options['sortable'] ? (
+                <Grid.Column width={1}>
+                    <DragHandle />
+                </Grid.Column>
+                ) : null }
+                <Grid.Column width={trackWidth}>
+                    {this.props.title}<br/>
+                    {this.props.artist}<br/>
+                    {this.props.album_title}
+                </Grid.Column>
+                <Grid.Column width={optionsWidth} floated="right">
+                    {icons.map((option, i) =>
+                        <Popup key={i} trigger={<Icon name={option.icon} />} content={option.popup} on='hover' />
+                    )}
+                    <Button.Group>
+                    {buttons.map((option, i) =>
+                        <Popup key={i} trigger={<Button icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
+                    )}
+                    {buttonToggles.map((option, i) =>
+                        <Popup key={i} trigger={<Button toggle active={option.active} icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
+                    )}
+                    </Button.Group>
+                </Grid.Column>
+            </Grid.Row>
+        );
+    }
+
+}
 
 export const SortableTrack = SortableElement(Track);

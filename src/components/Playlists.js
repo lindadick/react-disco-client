@@ -40,11 +40,12 @@ export default class Playlists extends Component {
                     <Grid.Row columns={1}>
                         <Grid.Column>
                             <Header as="h1">Playlists</Header>
-                            <Grid>
+                            <p>TBD</p>
+                            {/* <Grid>
                             {this.state.allPlaylists.map((playlist, i) =>
                                 <Playlist key={`item-${i}`} index={i} {...playlist}/>	
                             )}
-                            </Grid>
+                            </Grid> */}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

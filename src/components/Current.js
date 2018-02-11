@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import disco from '../lib/disco';
 import { Track } from './Track';
 import { TrackList } from './TrackList';
-import NowPlaying from './NowPlaying';
 import { arrayMove } from 'react-sortable-hoc';
-import { Container, Grid, Header } from 'semantic-ui-react';
+import { Container, Grid, Header, Segment } from 'semantic-ui-react';
 
 export default class Current extends Component {
     constructor(props) {
@@ -12,6 +11,11 @@ export default class Current extends Component {
 
         this.state = {
             currentTrack: null,
+            currentTrackOptions: {
+                addToPlaylist: false,
+                sortable: false,
+                skip: true
+            },
             currentPlaylist: [],
             upcomingPlaylist: []
         }
@@ -52,28 +56,24 @@ export default class Current extends Component {
 
     render() {
         return (
-            <Container>
+            <div>
+            <Segment>
+                <Header as="h1">Now Playing</Header>
                 <Grid>
-                    <Grid.Row columns={1}>
-                        <Header as="h1">Current Playlist</Header>
-                    </Grid.Row>
-                    <Grid.Row columns={1}>
-                        <NowPlaying track={this.state.currentTrack}/>
-                    </Grid.Row>
-                    <Grid.Row columns={1}>
-                        { this.state.upcomingPlaylist.length > 0 ? 
-                            (
-                            <Grid.Column>
-                                <Header as="h2">Coming Up</Header>
-                                <TrackList tracks={this.state.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                                useDragHandle={false} pressDelay={200} options={this.currentPlaylistOptions} />
-                            </Grid.Column>
-                            )
-                            : null
-                        }
-                    </Grid.Row>
+                    <Track key='item-0' options={this.state.currentTrackOptions} index={0} {...this.state.currentTrack}/>	
                 </Grid>
-            </Container>
+            </Segment>
+            { this.state.upcomingPlaylist.length > 0 ? 
+            (
+                <div>
+                <Header as="h2">Coming Up</Header>
+                <TrackList tracks={this.state.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
+                useDragHandle={false} pressDelay={200} options={this.currentPlaylistOptions} />
+                </div>
+            )
+            : null
+            }
+            </div>
         );
     }
 }
