@@ -10,11 +10,6 @@ export class Track extends Component {
     constructor(props) {
         super(props);
         
-        // Store shortlist value as state, so it can be changed.
-        this.state = {
-            shortlist: false
-        };
-
         this.addToCurrentPlaylist = this.addToCurrentPlaylist.bind(this);
         this.removeFromCurrentPlaylist = this.removeFromCurrentPlaylist.bind(this);
         this.toggleShortlist = this.toggleShortlist.bind(this);
@@ -31,13 +26,10 @@ export class Track extends Component {
     }
 
     toggleShortlist() {
-        if (!this.state.shortlist) {
-            // TODO wait for result before changing toggle?
+        if (!this.props.shortlist) {
             disco.addTrackToShortlist(this.props.album_id, this.props.track_id);
-            this.state.shortlist = true;
         } else {
             disco.removeTrackFromShortlist(this.props.album_id, this.props.track_id);
-            this.state.shortlist = false;
         }
     }
     
@@ -75,30 +67,29 @@ export class Track extends Component {
             })
         }
 
+        let trackClassName = "";
+
         if (!this.props.online) {
+            trackClassName = "track-offline";
             icons.push({
                 popup: "This track is currently offline",
                 icon: "dont"
             });
         } else {
-            this.state.shortlist = this.props.shortlist;
             buttonToggles.push({
                 onClick: this.toggleShortlist,
                 popup: "Toggle shortlist status",
                 icon: 'heart',
-                active: this.state.shortlist
+                active: this.props.shortlist
             });
         }
 
-        let numOptions = buttons.length + icons.length + buttonToggles.length;
         let numColumns = 2;
-
-        let optionsWidth = numOptions; // TODO figure out why this needs to be larger to accommodate phones
-        let trackWidth = 16 - optionsWidth;
+        let trackWidth = 10;
 
         if (this.props.options['sortable']) {
-            trackWidth = trackWidth - 2;
-            numColumns = 3;
+            trackWidth = trackWidth - 1;
+            numColumns = numColumns + 1;
         }
 
         return (
@@ -108,15 +99,14 @@ export class Track extends Component {
                     <DragHandle />
                 </Grid.Column>
                 ) : null }
-                <Grid.Column width={trackWidth}>
-                    {this.props.title}<br/>
-                    {this.props.artist}<br/>
-                    {this.props.album_title}
-                </Grid.Column>
-                <Grid.Column width={optionsWidth} floated="right">
+                <Grid.Column width={trackWidth} className={trackClassName}>
                     {icons.map((option, i) =>
                         <Popup key={i} trigger={<Icon name={option.icon} />} content={option.popup} on='hover' />
                     )}
+                    {this.props.artist} - {this.props.title}<br/>
+                    <span className="track-album-title">{this.props.album_title}</span>
+                </Grid.Column>
+                <Grid.Column width={5} floated="right">
                     <Button.Group>
                     {buttons.map((option, i) =>
                         <Popup key={i} trigger={<Button icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
