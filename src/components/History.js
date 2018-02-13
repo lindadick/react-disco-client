@@ -24,20 +24,11 @@ export default class History extends Component {
         console.log(error);
     }
 
-    refreshData() {
+    componentDidMount() {
         disco.getPlaylistHistory()
         .then(data => this.setState({ 
             history: data.reverse()
         }));
-    }
-
-    componentDidMount() {
-        this.interval = setInterval(() => this.refreshData(), 50000);    
-        this.refreshData();
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
     }
 
     render() {
