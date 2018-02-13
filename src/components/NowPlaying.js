@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Track } from './Track';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid, Header, Loader, Segment } from 'semantic-ui-react';
 
 export default class NowPlaying extends Component {
     constructor(props) {
@@ -21,9 +21,13 @@ export default class NowPlaying extends Component {
         return (
             <Segment>
                 <Header size="medium">Now Playing</Header>
+                { this.props.currentTrack ? (                   
                 <Grid>
                     <Track key='item-0' options={trackOptions} index={0} {...this.props.currentTrack}/>	
                 </Grid>
+                ): (
+                <Loader active />
+                ) }
             </Segment>
         );
     }

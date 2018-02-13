@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Container, Grid, Header } from 'semantic-ui-react';
+import { Button, Container, Grid, Header, Loader } from 'semantic-ui-react';
 
 import disco from '../lib/disco';
-import { Track } from './Track';
+import { TrackList } from './TrackList';
 
 export default class History extends Component {
     constructor(props) {
@@ -14,7 +14,8 @@ export default class History extends Component {
 
         this.options = {
             sortable: false, 
-            addToPlaylist: true
+            addToPlaylist: true,
+            showLastPlayed: true
         }
 
     }
@@ -46,15 +47,13 @@ export default class History extends Component {
                     <Grid.Row columns={1}>
                         <Grid.Column>
                             <Header as="h1">History</Header>
-                            {
-                            // TODO use TrackList Component instead, once the History API includes all the required fields
-                            }
+                            { this.state.history.length > 0 ? (                   
                             <Grid>   
-                            {this.state.history.map((track, i) =>
-                                <Track key={`item-${i}`} options={this.options} online={"Y"} index={i} {...track}/>
-                            // TODO: Remove "online=Y" once the API returns online status for history
-                            )}
+                                <TrackList tracks={this.state.history} options={this.options} />
                             </Grid>
+                            ): (
+                            <Loader active />
+                            ) }
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

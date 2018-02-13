@@ -27,7 +27,7 @@ class AppMenu extends Component {
                 <Menu.Item href='#/search' name='search' active={activeItem === 'search'} onClick={this.handleItemClick}>Tracks</Menu.Item>
                 <Menu.Item href='#/albums' name='albums' active={activeItem === 'albums'} onClick={this.handleItemClick}>Albums</Menu.Item>
                 {/* <Menu.Item href='#/playlists' name='playlists' active={activeItem === 'playlists'} onClick={this.handleItemClick}>Playlists</Menu.Item> */}
-                {/* <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item> */}
+                <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item>
                 {/* <Menu.Item href='#/admin' name='admin' active={activeItem === 'admin'} onClick={this.handleItemClick}>Admin</Menu.Item> */}
             </Menu>
         )
