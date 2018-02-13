@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Container, Menu, Header } from 'semantic-ui-react'
+import { Container, Grid, Menu, Header } from 'semantic-ui-react'
 
 import disco from '../lib/disco';
 
-import Current from './Current';
 import TrackSearch from './TrackSearch';
 import AlbumSearch from './AlbumSearch';
 import Playlists from './Playlists';
 import History from './History';
 import Admin from './Admin';
 import NowPlaying from './NowPlaying';
+import UpcomingPlaylist from './UpcomingPlaylist';
 
 class AppMenu extends Component {
     state = {}
@@ -78,7 +78,7 @@ export default class App extends React.Component {
                 <NowPlaying currentTrack={this.state.currentTrack} />
 
                 <Switch>
-                    <Route exact path="/" component={Current} />
+                    <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
                     <Route path="/search" component={TrackSearch} />
                     <Route path="/albums" component={AlbumSearch} />
                     <Route path="/playlists" component={Playlists} />

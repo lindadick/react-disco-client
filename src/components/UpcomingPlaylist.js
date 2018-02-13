@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import disco from '../lib/disco';
 import { Track } from './Track';
 import { TrackList } from './TrackList';
-import NowPlaying from './NowPlaying';
 import { arrayMove } from 'react-sortable-hoc';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 
@@ -22,12 +21,12 @@ export default class UpcomingPlaylist extends Component {
     };
 
     render() {
-        if (this.props.upcomingPlaylist.length > 0) {
+        if (this.props.upcomingPlaylist && this.props.upcomingPlaylist.length > 0) {
             return (
                 <div>
                 <Header as="h1">Coming Up</Header>
                 <TrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                useDragHandle={false} pressDelay={200} options={{sortable: true, removeFromPlaylist: true}} />
+                useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true}} />
                 </div>
             );
         } else {
