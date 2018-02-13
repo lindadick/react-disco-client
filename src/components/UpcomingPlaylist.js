@@ -4,7 +4,7 @@ import { Track } from './Track';
 import { TrackList } from './TrackList';
 import NowPlaying from './NowPlaying';
 import { arrayMove } from 'react-sortable-hoc';
-import { Container, Grid, Header, Segment } from 'semantic-ui-react';
+import { Grid, Header, Segment } from 'semantic-ui-react';
 
 export default class UpcomingPlaylist extends Component {
     constructor(props) {

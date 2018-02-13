@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Form, Grid, Header } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 
 import disco from '../lib/disco';
 import { Playlist } from './Playlist'
@@ -35,21 +35,19 @@ export default class Playlists extends Component {
 
     render() {
         return (
-            <Container>
-                <Grid>
-                    <Grid.Row columns={1}>
-                        <Grid.Column>
-                            <Header as="h1">Playlists</Header>
-                            <p>TBD</p>
-                            {/* <Grid>
-                            {this.state.allPlaylists.map((playlist, i) =>
-                                <Playlist key={`item-${i}`} index={i} {...playlist}/>	
-                            )}
-                            </Grid> */}
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </Container>
+            <Grid>
+                <Grid.Row columns={1}>
+                    <Grid.Column>
+                        <Header as="h1">Playlists</Header>
+                        <p>TBD</p>
+                        {/* <Grid>
+                        {this.state.allPlaylists.map((playlist, i) =>
+                            <Playlist key={`item-${i}`} index={i} {...playlist}/>	
+                        )}
+                        </Grid> */}
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
         );
     }
 }
