@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Container, Grid, Menu, Header } from 'semantic-ui-react'
+import { Container, Grid, Icon, Menu, Header, Segment } from 'semantic-ui-react'
 
 import disco from '../lib/disco';
 
@@ -93,6 +93,10 @@ export default class App extends React.Component {
                     <Route path="/history" component={History} />
                     <Route path="/admin" component={Admin} />
                 </Switch>
+
+                <Segment textAlign="center" size="mini">
+                    Robinet Disco client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client"><Icon name="github" link={true} /></a>
+                </Segment>
             </Container>
         );
     }
