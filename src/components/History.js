@@ -15,7 +15,8 @@ export default class History extends Component {
         this.options = {
             sortable: false, 
             addToPlaylist: true,
-            showLastPlayed: true
+            showLastPlayed: true,
+            showDuration: true
         }
 
     }

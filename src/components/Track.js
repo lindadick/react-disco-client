@@ -91,6 +91,10 @@ export class Track extends Component {
             trackWidth = trackWidth - 1;
             numColumns = numColumns + 1;
         }
+        if (this.props.options['showDuration']) {
+            trackWidth = trackWidth - 1;
+            numColumns = numColumns + 2;
+        }
 
         return (
             <Grid.Row columns={numColumns}>
@@ -106,7 +110,12 @@ export class Track extends Component {
                     {this.props.artist} - {this.props.title}<br/>
                     <span className="track-album-title">{this.props.album_title}</span>
                 </Grid.Column>
-                <Grid.Column width={5} floated="right">
+                { this.props.options['showDuration'] ? (
+                <Grid.Column width={2}>
+                    {this.props.duration}
+                </Grid.Column>
+                ) : null }
+                <Grid.Column width={5} floated="right" textAlign="right">
                     <Button.Group>
                     {buttons.map((option, i) =>
                         <Popup key={i} trigger={<Button icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />

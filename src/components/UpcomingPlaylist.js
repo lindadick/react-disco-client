@@ -22,7 +22,7 @@ export default class UpcomingPlaylist extends Component {
                 <div>
                 <Header as="h1">Coming Up</Header>
                 <TrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true}} />
+                useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: false}} />
                 </div>
             );
         } else {
