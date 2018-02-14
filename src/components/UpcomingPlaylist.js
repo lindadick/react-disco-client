@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import disco from '../lib/disco';
-import { Track } from './Track';
 import { TrackList } from './TrackList';
 import { arrayMove } from 'react-sortable-hoc';
 import { Grid, Header, Segment } from 'semantic-ui-react';
 
 export default class UpcomingPlaylist extends Component {
+
     constructor(props) {
         super(props);
-    }
-
-    onError(error){
-        console.log(error)
     }
 
     onUpcomingPlaylistSortEnd = ({oldIndex, newIndex}) => {
@@ -33,4 +29,5 @@ export default class UpcomingPlaylist extends Component {
             return null;
         }
     }
+
 }

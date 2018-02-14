@@ -50,13 +50,21 @@ export default class App extends React.Component {
     }
 
     refreshData() {
-        // Current playlist
         disco.getCurrentPlaylist()
-        .then(data => this.setState({ 
-            currentPlaylist: data,
-            currentTrack: data[0],
-            upcomingPlaylist: data.slice(1)
-        }));
+        .then(data => this.updateStateIfNeeded(data));
+    }
+
+    updateStateIfNeeded(newData) {
+        // Only update the state if it actually changed, to prevent unnecessary render calls
+        if (newData == null) {
+            this.state.currentPlaylist = [];
+        } else if (!this.state.currentPlaylist || JSON.stringify(newData) !== JSON.stringify(this.state.currentPlaylist)) {
+            this.setState({ 
+                currentPlaylist: newData,
+                currentTrack: newData[0],
+                upcomingPlaylist: newData.slice(1)
+            });            
+        }
     }
 
     componentDidMount() {
