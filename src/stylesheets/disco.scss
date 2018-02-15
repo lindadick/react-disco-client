@@ -6,3 +6,12 @@
 .track-album-title {
     font-style: italic;
 }
+
+// TODO figure out how to theme Semantic UI to avoid !important declarations.
+table.now-playing {
+    border: 0px !important;
+
+    td {
+        padding: 0 !important;
+    }
+}

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header } from 'semantic-ui-react';
+import { Button, Form, Header, Loader, Message, Segment } from 'semantic-ui-react';
 
 import disco from '../lib/disco'
-import { Track } from './Track'
+import { TrackList } from './TrackList'
 
 export default class TrackSearch extends Component {
     constructor(props) {
@@ -11,13 +11,9 @@ export default class TrackSearch extends Component {
         this.state = {
             artist: '',
             title: '',
-            searchResults: [],
+            searchResults: null,
+            searching: false
         };
-
-        this.searchOptions = {
-            sortable: false, 
-            addToPlaylist: true
-        }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,11 +31,14 @@ export default class TrackSearch extends Component {
 
     handleSubmit(event) {
         if (this.state.artist != '' || this.state.title != '') {
+            this.setState({
+                searching: true
+            });
             disco.searchForTracks(this.state.artist, this.state.title)
             .then(data => {
-                // TODO weed out offline tracks
                 this.setState({ 
-                    searchResults: data
+                    searchResults: data,
+                    searching: false
                 });
             });
         } else {
@@ -59,35 +58,39 @@ export default class TrackSearch extends Component {
     }
 
     render() {
-        const searchResultsAvailable = this.state.searchResults.length > 0;
-
         return (
-            <Grid>
-                <Grid.Row columns={1}>
-                    <Grid.Column>
-                        <Header as="h1">Search for Tracks</Header>
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Input id="form-input-control-artist" name="artist" value={this.state.artist} label="Artist" placeholder="Artist name" onChange={this.handleInputChange} />
-                            <Form.Input id="form-input-control-title" name="title" value={this.state.title} label="Title" placeholder="Track title" onChange={this.handleInputChange} />
-                            <Button type="submit" icon="search" content="Search" />	
-                        </Form>
-                    </Grid.Column>
-                </Grid.Row>
-                { searchResultsAvailable ? (
-                <Grid.Row columns={1}>
-                    <Grid.Column>
-                        <Header as="h2">Search Results</Header>
-                        <Grid>
-                            {this.state.searchResults.map((track, i) =>
-                                <Track key={`item-${i}`} options={this.searchOptions} index={i} {...track}/>	
-                            )}
-                        </Grid>
-                        <Button onClick={this.addAllToCurrentPlaylist.bind(this)} icon="add" content="Add all results to current playlist" />
-                    </Grid.Column>
-                </Grid.Row>
-                ) : null }
-            </Grid>
+            <div>
+                <Header as="h1">Search for Tracks</Header>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Input id="form-input-control-artist" name="artist" value={this.state.artist} label="Artist" placeholder="Artist name" onChange={this.handleInputChange} />
+                    <Form.Input id="form-input-control-title" name="title" value={this.state.title} label="Title" placeholder="Track title" onChange={this.handleInputChange} />
+                    <Button type="submit" icon="search" content="Search" />	
+                </Form>
+                { this.state.searching ? (
+                <Message>
+                    <Loader active />
+                    <p>Searching...</p>
+                </Message>
+                ) : (
+                    null 
+                )}
+                { this.state.searchResults && this.state.searchResults.length == 0 ? (
+                <Message negative>
+                    <p>No results found.</p>
+                </Message>
+                ) : (
+                    null 
+                )}
+                { this.state.searchResults && this.state.searchResults.length > 0 ? (
+                <div>
+                    <Header as="h2">Search Results</Header>
+                    <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
+                    <Button onClick={this.addAllToCurrentPlaylist.bind(this)} icon="add" content="Add all results to current playlist" />
+                </div>
+                ) : (
+                    null
+                )}
+            </div>
         );
     }
 }
-  

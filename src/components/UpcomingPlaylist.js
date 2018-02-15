@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import disco from '../lib/disco';
 import { TrackList } from './TrackList';
 import { arrayMove } from 'react-sortable-hoc';
-import { Grid, Header, Segment } from 'semantic-ui-react';
+import { Container, Header, Segment } from 'semantic-ui-react';
 
 export default class UpcomingPlaylist extends Component {
 
@@ -19,11 +19,11 @@ export default class UpcomingPlaylist extends Component {
     render() {
         if (this.props.upcomingPlaylist && this.props.upcomingPlaylist.length > 0) {
             return (
-                <div>
+                <Container>
                 <Header as="h1">Coming Up</Header>
                 <TrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: false}} />
-                </div>
+                useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: true}} />
+                </Container>
             );
         } else {
             return null;

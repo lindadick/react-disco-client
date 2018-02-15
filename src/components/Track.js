@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import disco from '../lib/disco';
+import moment from 'moment';
 import {SortableElement, SortableHandle} from 'react-sortable-hoc';
-import { Button, Grid, Icon, Popup } from 'semantic-ui-react';
+import { Button, Table, Icon, Popup } from 'semantic-ui-react';
+
+import disco from '../lib/disco';
 
 const DragHandle = SortableHandle(() => <Icon name="move" label="Reorder Tracks" />);
 
@@ -97,25 +99,30 @@ export class Track extends Component {
         }
 
         return (
-            <Grid.Row columns={numColumns}>
+            <Table.Row>
                 { this.props.options['sortable'] ? (
-                <Grid.Column width={1}>
+                <Table.Cell collapsing>
                     <DragHandle />
-                </Grid.Column>
+                </Table.Cell>
                 ) : null }
-                <Grid.Column width={trackWidth} className={trackClassName}>
+                <Table.Cell className={trackClassName}>
                     {icons.map((option, i) =>
                         <Popup key={i} trigger={<Icon name={option.icon} />} content={option.popup} on='hover' />
                     )}
                     {this.props.artist} - {this.props.title}<br/>
                     <span className="track-album-title">{this.props.album_title}</span>
-                </Grid.Column>
+                </Table.Cell>
                 { this.props.options['showDuration'] ? (
-                <Grid.Column width={2}>
+                <Table.Cell collapsing>
                     {this.props.duration}
-                </Grid.Column>
+                </Table.Cell>
                 ) : null }
-                <Grid.Column width={5} floated="right" textAlign="right">
+                { this.props.options['showLastPlayed'] ? (
+                <Table.Cell collapsing>
+                    {moment.unix(parseInt(this.props.last_play, 16)).format('llll')}
+                </Table.Cell>
+                ) : null }
+                <Table.Cell collapsing>
                     <Button.Group>
                     {buttons.map((option, i) =>
                         <Popup key={i} trigger={<Button icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
@@ -124,8 +131,8 @@ export class Track extends Component {
                         <Popup key={i} trigger={<Button toggle active={option.active} icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
                     )}
                     </Button.Group>
-                </Grid.Column>
-            </Grid.Row>
+                </Table.Cell>
+            </Table.Row>
         );
     }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Grid, Button, Popup } from 'semantic-ui-react';
+import { Button, Popup, Table } from 'semantic-ui-react';
 
 import disco from '../lib/disco';
 
@@ -17,25 +17,25 @@ export class Album extends Component {
 
     render() {
         return (
-            <Grid.Row columns={5}>
-                <Grid.Column>
-                    <span>{this.props.artist}</span>
-                </Grid.Column>
-                <Grid.Column>
-                    <span>{this.props.title}</span>
-                </Grid.Column>
-                <Grid.Column>
-                    <span>{this.props.duration}</span>
-                </Grid.Column>
-                <Grid.Column>
-                    <span>{this.props.track_count}</span>
-                </Grid.Column>
-                <Grid.Column>
+            <Table.Row>
+                <Table.Cell>
+                    {this.props.artist}
+                </Table.Cell>
+                <Table.Cell>
+                    {this.props.title}
+                </Table.Cell>
+                <Table.Cell collapsing>
+                    {this.props.duration}
+                </Table.Cell>
+                <Table.Cell collapsing>
+                    {this.props.track_count}
+                </Table.Cell>
+                <Table.Cell collapsing>
                     {this.props.options['addToPlaylist'] ? (
                     <Popup trigger={<Button icon="add" onClick={this.addToCurrentPlaylist} />} content="Add album to current playlist" on='hover' />
                     ) : null} 
-                </Grid.Column>
-            </Grid.Row>
+                </Table.Cell>
+            </Table.Row>
         )
     }
 }
