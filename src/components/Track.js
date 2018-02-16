@@ -128,7 +128,7 @@ export class Track extends Component {
                         <Popup key={i} trigger={<Button icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
                     )}
                     {buttonToggles.map((option, i) =>
-                        <Popup key={i} trigger={<Button toggle active={option.active} icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
+                        <Popup key={i} trigger={<Button className="shortlist-button" toggle active={option.active} icon={option.icon} onClick={option.onClick} />} content={option.popup} on='hover' />
                     )}
                     </Button.Group>
                 </Table.Cell>

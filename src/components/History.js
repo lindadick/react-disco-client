@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Grid, Header, Loader } from 'semantic-ui-react';
+import moment from 'moment';
 
 import disco from '../lib/disco';
 import { TrackList } from './TrackList';
@@ -24,7 +25,7 @@ export default class History extends Component {
     render() {
         return (
             <Container>
-                <Header as="h1">History</Header>
+                <Header as="h1">History for {moment().format('LL')}</Header>
                 { this.state.history.length > 0 ? (                   
                 <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true}} />
                 ): (

@@ -15,3 +15,8 @@ table.now-playing {
         padding: 0 !important;
     }
 }
+
+.ui.button.toggle.active, .ui.buttons .button.toggle.active, .ui.toggle.buttons .active.button {
+    background-color: rgb(224, 225, 226) !important;
+    color: #ff0000 !important;
+}
