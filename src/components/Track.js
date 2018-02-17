@@ -118,7 +118,7 @@ export class Track extends Component {
                 ) : null }
                 <Table.Cell className={trackClassName}>
                     {icons.map((option, i) =>
-                        <Popup key={i} trigger={<Icon name={option.icon} />} content={option.popup} on='hover' />
+                    <Popup key={i} trigger={<Icon name={option.icon} />} content={option.popup} on='hover' />
                     )}
                     {this.props.artist} - {this.props.title}<br/>
                     <span className="track-album-title">{this.props.album_title}</span>
@@ -130,20 +130,20 @@ export class Track extends Component {
                 ) : null }
                 { this.props.options['showLastPlayed'] ? (
                 <Table.Cell>
-                    {moment.unix(parseInt(this.props.last_play, 16)).format('llll')}
+                    {moment.unix(parseInt(this.props.last_play, 16)).format('lll')}
                 </Table.Cell>
                 ) : null }
                 <Table.Cell collapsing>
                     {buttons.map((option, i) =>
-                        <Popup key={i} trigger={<Button loading={option.loading} className={option.className} 
-                            icon={option.icon} onClick={option.onClick} />} 
-                            content={option.popup} on='hover' />
+                    <Popup key={i} trigger={<Button loading={option.loading} className={option.className} 
+                        icon={option.icon} onClick={option.onClick} />} 
+                        content={option.popup} on='hover' />
                     )}
                     {this.props.online? (
-                        <Popup trigger={<Button className="shortlist-button" 
-                            toggle active={this.props.shortlist} 
-                            icon="heart" onClick={this.toggleShortlist} />} 
-                            content="Toggle shortlist status" on='hover' />
+                    <Popup trigger={<Button className="shortlist-button" 
+                        toggle active={this.props.shortlist} 
+                        icon="heart" onClick={this.toggleShortlist} />} 
+                        content="Toggle shortlist status" on='hover' />
                     ) : null }
                 </Table.Cell>
             </Table.Row>

@@ -61,6 +61,7 @@ var disco = {
         let difference = oldIndex - newIndex;
         let url = '';
         if (difference == 0) {
+            //TODO make this a Promise...
             return;
         } else if (difference > 0) {
             url = API_HOST + `/move_up/` + album_id + '/' + track_id + `?num=` + difference;

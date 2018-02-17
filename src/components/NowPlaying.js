@@ -19,10 +19,10 @@ export default class NowPlaying extends Component {
         };
 
         return (
-            <Segment>
-                <Header size="medium">Now Playing</Header>
+            <Segment raised>
+                <Header size="medium" className="now-playing">Now Playing</Header>
                 { this.props.currentTrack ? (                   
-                <Table compact basic className="now-playing">
+                <Table compact basic unstackable className="now-playing">
                     <Table.Body>
                         <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
                     </Table.Body>

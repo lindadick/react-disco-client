@@ -76,7 +76,7 @@ export default class AlbumSearch extends Component {
                 { this.state.searchResults && this.state.searchResults.length > 0 ? (
                 <div>
                     <Header as="h2">Search Results</Header>
-                    <Table basic compact unstackable striped>
+                    <Table basic compact stackable striped>
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell>Artist</Table.HeaderCell>
