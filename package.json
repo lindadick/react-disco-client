@@ -29,7 +29,8 @@
     "semantic-ui-react": "^0.78.2"
   },
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "webpack"
   },
   "author": "Linda Dick",
   "repository": "https://github.com/lindadick/react-disco-client.git",
