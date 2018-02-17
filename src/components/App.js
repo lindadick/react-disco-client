@@ -7,9 +7,7 @@ import disco from '../lib/disco';
 
 import TrackSearch from './TrackSearch';
 import AlbumSearch from './AlbumSearch';
-import Playlists from './Playlists';
 import History from './History';
-import Admin from './Admin';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
 
@@ -23,12 +21,10 @@ class AppMenu extends Component {
 
         return (
             <Menu stackable inverted>
-                <Menu.Item href='/' name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>Current Playlist</Menu.Item>
+                <Menu.Item href='#/' name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>Current Playlist</Menu.Item>
                 <Menu.Item href='#/search' name='search' active={activeItem === 'search'} onClick={this.handleItemClick}>Tracks</Menu.Item>
                 <Menu.Item href='#/albums' name='albums' active={activeItem === 'albums'} onClick={this.handleItemClick}>Albums</Menu.Item>
-                {/* <Menu.Item href='#/playlists' name='playlists' active={activeItem === 'playlists'} onClick={this.handleItemClick}>Playlists</Menu.Item> */}
                 <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item>
-                {/* <Menu.Item href='#/admin' name='admin' active={activeItem === 'admin'} onClick={this.handleItemClick}>Admin</Menu.Item> */}
             </Menu>
         )
     }
@@ -89,9 +85,7 @@ export default class App extends React.Component {
                     <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
                     <Route path="/search" component={TrackSearch} />
                     <Route path="/albums" component={AlbumSearch} />
-                    <Route path="/playlists" component={Playlists} />
                     <Route path="/history" component={History} />
-                    <Route path="/admin" component={Admin} />
                 </Switch>
 
                 <Segment textAlign="center" size="mini">
