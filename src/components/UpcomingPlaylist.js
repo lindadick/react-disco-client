@@ -15,17 +15,19 @@ export default class UpcomingPlaylist extends Component {
     }
 
     onUpcomingPlaylistSortEnd = ({oldIndex, newIndex}) => {
-        let album_id = this.props.upcomingPlaylist[oldIndex].album_id;
-        let track_id = this.props.upcomingPlaylist[oldIndex].track_id;
-        this.setState({
-            moving: true
-        });
-        disco.moveTrackWithinCurrentPlaylist(album_id, track_id, oldIndex, newIndex)
-        .then(data => {
-            this.setState({ 
-                moving: false
+        if (oldIndex != newIndex) {
+            let album_id = this.props.upcomingPlaylist[oldIndex].album_id;
+            let track_id = this.props.upcomingPlaylist[oldIndex].track_id;
+            this.setState({
+                moving: true
             });
-        });
+            disco.moveTrackWithinCurrentPlaylist(album_id, track_id, oldIndex, newIndex)
+            .then(data => {
+                this.setState({ 
+                    moving: false
+                });
+            });
+        }
     };
 
     render() {
