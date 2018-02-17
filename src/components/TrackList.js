@@ -7,13 +7,13 @@ function renderTracks(tracks, options) {
     if (options['sortable']) {
         return (
             tracks.map((track, i) =>
-                <SortableTrack key={`item-${i}`} options={options} index={i} {...track}/>	
+                <SortableTrack key={track.album_id + `-` + track.track_id} options={options} index={i} {...track}/>	
             )
         );
     } else {
         return (
             tracks.map((track, i) =>
-                <Track key={`item-${i}`} options={options} index={i} {...track}/>	
+                <Track key={track.album_id + `-` + track.track_id} options={options} index={i} {...track}/>	
             )
         )
     }

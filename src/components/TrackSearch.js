@@ -12,7 +12,8 @@ export default class TrackSearch extends Component {
             artist: '',
             title: '',
             searchResults: null,
-            searching: false
+            searching: false,
+            allAdded: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -32,7 +33,8 @@ export default class TrackSearch extends Component {
     handleSubmit(event) {
         if (this.state.artist != '' || this.state.title != '') {
             this.setState({
-                searching: true
+                searching: true,
+                allAdded: false
             });
             disco.searchForTracks(this.state.artist, this.state.title)
             .then(data => {
@@ -55,6 +57,9 @@ export default class TrackSearch extends Component {
                 disco.addTrackToCurrentPlaylist(track.album_id, track.track_id);
             }
         });
+        this.setState({
+            allAdded: true
+        })
     }
 
     render() {
@@ -85,7 +90,11 @@ export default class TrackSearch extends Component {
                 <div>
                     <Header as="h2">Search Results</Header>
                     <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
-                    <Button onClick={this.addAllToCurrentPlaylist.bind(this)} icon="add" content="Add all results to current playlist" />
+                    { this.state.allAdded ? (
+                    <Button icon="check" className="button-added" content="All tracks added to current playlist" />
+                    ) : (
+                    <Button onClick={this.addAllToCurrentPlaylist.bind(this)} icon="add" content="Add all tracks to current playlist" />
+                    )}
                 </div>
                 ) : (
                     null

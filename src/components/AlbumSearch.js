@@ -36,7 +36,6 @@ export default class AlbumSearch extends Component {
             });
             disco.searchForAlbums(this.state.artist, this.state.title)
             .then(data => {
-                // TODO weed out offline tracks
                 this.setState({ 
                     searchResults: data,
                     searching: false
@@ -82,14 +81,14 @@ export default class AlbumSearch extends Component {
                             <Table.Row>
                                 <Table.HeaderCell>Artist</Table.HeaderCell>
                                 <Table.HeaderCell>Title</Table.HeaderCell>
-                                <Table.HeaderCell>Duration</Table.HeaderCell>
-                                <Table.HeaderCell singleLine>Track Count</Table.HeaderCell>
+                                <Table.HeaderCell>Time</Table.HeaderCell>
+                                <Table.HeaderCell>Tracks</Table.HeaderCell>
                                 <Table.HeaderCell>Options</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
                             {this.state.searchResults.map((album, i) =>
-                            <Album key={`item-${i}`} options={{sortable: false, addToPlaylist: true}} index={i} {...album}/>	
+                            <Album key={album.id} options={{sortable: false, addToPlaylist: true}} index={i} {...album}/>	
                             )}
                         </Table.Body>
                     </Table>

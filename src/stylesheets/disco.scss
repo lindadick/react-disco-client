@@ -20,3 +20,16 @@ table.now-playing {
     background-color: rgb(224, 225, 226) !important;
     color: #ff0000 !important;
 }
+
+.ui.button.toggle.active:hover, .ui.buttons .button.toggle.active:hover, .ui.toggle.buttons .active.button:hover {
+    background-color: #ff0000 !important;
+}
+
+.button-added {
+    color: #21ba45 !important;
+}
+
+.ui.header:first-child {
+    //TODO this is due to something in the CSS I probably don't understand...
+    margin-top: 0.5em !important;
+}

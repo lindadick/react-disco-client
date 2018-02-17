@@ -24,14 +24,14 @@ export default class History extends Component {
 
     render() {
         return (
-            <Container>
+            <div>
                 <Header as="h1">History for {moment().format('LL')}</Header>
                 { this.state.history.length > 0 ? (                   
                 <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true}} />
                 ): (
                 <Loader active />
                 ) }
-            </Container>
+            </div>
         );
     }
 }

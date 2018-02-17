@@ -24,7 +24,7 @@ export default class NowPlaying extends Component {
                 { this.props.currentTrack ? (                   
                 <Table compact basic className="now-playing">
                     <Table.Body>
-                        <Track key='item-0' options={trackOptions} index={0} {...this.props.currentTrack}/>	
+                        <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
                     </Table.Body>
                 </Table>
                 ): (

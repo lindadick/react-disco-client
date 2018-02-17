@@ -2,8 +2,6 @@ import axios from 'axios';
 
 const API_HOST = 'http://192.168.1.10:5000';
 
-const ONLINE_ONLY = true;
-
 var disco = {
     getCurrentPlaylist: () => {
         return axios.get(API_HOST + `/playing`)
@@ -31,14 +29,17 @@ var disco = {
         .catch(err => console.log(err));
     },
     addTrackToCurrentPlaylist: (album_id, track_id) => {
-        axios.post(API_HOST + `/add/` + album_id + '/' + track_id)
+        return axios.post(API_HOST + `/add/` + album_id + '/' + track_id)
         .catch(err => console.log(err));
     },
     addAlbumToCurrentPlaylist: (id, track_count) => {
+        let success = false;
         for (var i = 1; i <= track_count; i++) {
             axios.post(API_HOST + `/add/` + id + '/' + i)
+            .then(success = true)
             .catch(err => console.log(err));
         }
+        return success;
     },    
     removeTrackFromCurrentPlaylist: (album_id, track_id) => {
         axios.post(API_HOST + `/remove/` + album_id + '/' + track_id)
@@ -53,7 +54,7 @@ var disco = {
         .catch(err => console.log(err));
     },
     skipToNextTrack: () => {
-        axios.post(API_HOST + `/next`)
+        return axios.post(API_HOST + `/next`)
         .catch(err => console.log(err));
     },
     moveTrackWithinCurrentPlaylist: (album_id, track_id, oldIndex, newIndex) => {
