@@ -33,13 +33,9 @@ var disco = {
         .catch(err => console.log(err));
     },
     addAlbumToCurrentPlaylist: (id, track_count) => {
-        let success = false;
-        for (var i = 1; i <= track_count; i++) {
-            axios.post(API_HOST + `/add/` + id + '/' + i)
-            .then(success = true)
-            .catch(err => console.log(err));
-        }
-        return success;
+        return axios.post(API_HOST + `/add/` + id)
+        .then(res => res.data)
+        .catch(err => console.log(err));
     },    
     removeTrackFromCurrentPlaylist: (album_id, track_id) => {
         axios.post(API_HOST + `/remove/` + album_id + '/' + track_id)
