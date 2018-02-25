@@ -5,7 +5,8 @@ const common = require('./webpack.common.js');
 const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = merge(common, {
-	plugins: [
+    devtool: 'source-map',
+    plugins: [
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': '"production"'
         }),
@@ -17,7 +18,8 @@ module.exports = merge(common, {
 				unsafe: true,
 				unsafe_comps: true,
 				screw_ie8: true
-			},
+            },
+            sourceMap: true,
 			output: {
 				comments: false,
 			},
