@@ -5,13 +5,17 @@ import { Table, Header, Loader, Segment } from 'semantic-ui-react';
 export default class NowPlaying extends Component {
     constructor(props) {
         super(props);
-   }
+
+        this.updateTitle = this.props.updateTitle.bind(this);
+    }
 
     onError(error){
         console.log(error)
     }
 
     render() {
+        this.updateTitle(this.props.currentTrack, this.props.appName);
+
         let trackOptions = {
             addToPlaylist: false,
             sortable: false,

@@ -63,6 +63,14 @@ export default class App extends React.Component {
         }
     }
 
+    updateDocumentTitle(currentTrack, appName) {
+        if (currentTrack) {
+            document.title = currentTrack.artist + " - " + currentTrack.title + " | " + appName;
+        } else {
+            document.title = appName;
+        }
+    }
+
     componentDidMount() {
         this.interval = setInterval(() => this.refreshData(), 1000);                 
         this.refreshData();
@@ -75,11 +83,11 @@ export default class App extends React.Component {
     render() {
         return (
             <Container>
-                <Header size="huge">Robinet Disco</Header>
+                <Header size="huge">{this.props.appName}</Header>
 
                 <AppMenu/>
 
-                <NowPlaying currentTrack={this.state.currentTrack} />
+                <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={this.props.appName} />
 
                 <Switch>
                     <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
