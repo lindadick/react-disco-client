@@ -1,5 +1,5 @@
-var webpack = require("webpack");
-var path = require("path");
+const webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
 	entry: path.resolve(__dirname + "/src/index.js"),
@@ -7,13 +7,6 @@ module.exports = {
 		path: path.resolve(__dirname + "/public/assets"),
 		filename: "bundle.js",
 		publicPath: "assets"
-	},
-	devtool: 'inline-source-map',
-	devServer: {
-		inline: true,
-		contentBase: __dirname + '/public',
-		port: 3333,
-		host: '0.0.0.0'
 	},
 	module: {
 		rules: [
