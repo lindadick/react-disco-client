@@ -22,7 +22,7 @@ function renderTracks(tracks, options) {
 export const TrackList = SortableContainer(({tracks, options}) => {
 
     return (
-        <Table basic compact stackable striped className="raised">
+        <Table basic compact unstackable striped className="raised">
             <Table.Header>
                 <Table.Row>
                     { options['sortable'] ? (
