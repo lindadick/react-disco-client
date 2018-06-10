@@ -130,7 +130,7 @@ export class Track extends Component {
                 ) : null }
                 { this.props.options['showLastPlayed'] ? (
                 <Table.Cell>
-                    {moment.unix(parseInt(this.props.last_play, 16)).format('lll')}
+                    {moment.unix(parseInt(this.props.last_play, 16)).format('MMM D YYYY, H:mm')}
                 </Table.Cell>
                 ) : null }
                 <Table.Cell collapsing>
