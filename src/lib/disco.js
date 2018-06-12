@@ -19,12 +19,12 @@ var disco = {
         .catch(err => console.log(err));
     },
     searchForTracks: (artist, title) => {
-        return axios.get(API_HOST + `/tracks?artist=` + artist + `&title=` + title)
+        return axios.get(API_HOST + `/tracks?artist=` + artist.trim() + `&title=` + title.trim())
         .then(res => res.data)
         .catch(err => console.log(err));
     },
     searchForAlbums: (artist, title) => {
-        return axios.get(API_HOST + `/albums?artist=` + artist + `&title=` + title)
+        return axios.get(API_HOST + `/albums?artist=` + artist.trim() + `&title=` + title.trim())
         .then(res => res.data)
         .catch(err => console.log(err));
     },
