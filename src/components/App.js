@@ -30,6 +30,7 @@ class AppMenu extends Component {
                 <Menu.Item href='#/search' name='search' active={activeItem === 'search'} onClick={this.handleItemClick}>Tracks</Menu.Item>
                 <Menu.Item href='#/albums' name='albums' active={activeItem === 'albums'} onClick={this.handleItemClick}>Albums</Menu.Item>
                 <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item>
+                <Menu.Item href='http://192.168.1.10:8000/disco' name='icecast' target='_blank' position='right' onClick={this.handleItemClick}>Icecast</Menu.Item>
             </Menu>
         )
     }    
