@@ -1,0 +1,34 @@
+/* Dark theme for Robinet Disco client */
+
+@headerFont        : 'Muli', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont          : 'Muli', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@googleFontName    : 'Muli';
+
+@textColor      : #bbbbbb;
+
+@pageBackground: #000c18;
+@segmentBackground: #1c1c2a; /* Note: this is a custom variable (not from SemanticUI) */
+
+@borderColor: #262641;
+
+@subtleTransparentBlack : rgba(0, 0, 0, 0.1);
+@transparentBlack : rgba(0, 0, 0, 0.5);
+
+@inputBackground: #051336;
+
+@selectedTextColor: #395a7a;
+@linkColor: @selectedTextColor;
+@linkHoverColor: #7B6CA6;
+@linkHoverUnderline: underline;
+
+/* VSCode Abyss colors
+Code: #000c18
+Sidebar: 060621
+Highlight: 082050
+Text: bbbbbb
+Line numbers: 395a7a
+Line numbers highlighted: 80a2c2
+Menu bar: 051336
+Tab background: 1c1c2a
+Tab highlighted: 000c18
+*/

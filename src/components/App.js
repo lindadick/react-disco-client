@@ -13,6 +13,8 @@ import UpcomingPlaylist from './UpcomingPlaylist';
 
 import '../semantic/dist/semantic.min.css';
 
+import {APP_NAME, ICECAST_URL} from '../lib/config';
+
 class AppMenu extends Component {
     state = { }
 
@@ -32,7 +34,9 @@ class AppMenu extends Component {
                 <Menu.Item href='#/search' name='search' active={activeItem === 'search'} onClick={this.handleItemClick}>Tracks</Menu.Item>
                 <Menu.Item href='#/albums' name='albums' active={activeItem === 'albums'} onClick={this.handleItemClick}>Albums</Menu.Item>
                 <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item>
-                <Menu.Item href='http://192.168.1.10:8000/disco' name='icecast' target='_blank' position='right' onClick={this.handleItemClick}>Icecast</Menu.Item>
+                { ICECAST_URL &&
+                    <Menu.Item href={ICECAST_URL} name='icecast' target='_blank' position='right' onClick={this.handleItemClick}>Icecast</Menu.Item>
+                }
             </Menu>
         )
     }    
@@ -74,11 +78,11 @@ export default class App extends React.Component {
         }
     }
 
-    updateDocumentTitle(currentTrack, appName) {
+    updateDocumentTitle(currentTrack) {
         if (currentTrack) {
-            document.title = currentTrack.artist + " - " + currentTrack.title + " | " + appName;
+            document.title = currentTrack.artist + " - " + currentTrack.title + " | " + APP_NAME;
         } else {
-            document.title = appName;
+            document.title = APP_NAME;
         }
     }
 
@@ -100,17 +104,17 @@ export default class App extends React.Component {
 
         return (
             <Sidebar.Pushable>
-                <Sidebar as={AppMenu} vertical inverted={true} animation='push' direction='left' visible={sidebarVisible} onClick={this.toggleSidebarVisibility}/>
+                <Sidebar as={AppMenu} vertical inverted={false} animation='push' direction='left' visible={sidebarVisible} onClick={this.toggleSidebarVisibility}/>
                 <Sidebar.Pusher>
                     <Container>
                         <Header size="huge">
                             <Responsive maxWidth={767} as={Icon} name="sidebar" size ="small" onClick={this.toggleSidebarVisibility} />
-                            {this.props.appName}
+                            {APP_NAME}
                         </Header>
                         <Responsive minWidth={768}>
-                            <AppMenu inverted/>
+                            <AppMenu/>
                         </Responsive>
-                        <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={this.props.appName} />
+                        <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} />
                         <Switch>
                             <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
                             <Route path="/search" component={TrackSearch} />
@@ -118,7 +122,7 @@ export default class App extends React.Component {
                             <Route path="/history" component={History} />
                         </Switch>
                         <Segment textAlign="center" size="mini">
-                            Robinet Disco client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client"><Icon name="github" link={true} /></a>
+                            {APP_NAME}: client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client"><Icon name="github" link={true} /></a>
                         </Segment>
                     </Container>
                 </Sidebar.Pusher>
