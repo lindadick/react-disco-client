@@ -11,6 +11,8 @@ import History from './History';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
 
+import '../semantic/dist/semantic.min.css';
+
 class AppMenu extends Component {
     state = { }
 
@@ -98,7 +100,7 @@ export default class App extends React.Component {
 
         return (
             <Sidebar.Pushable>
-                <Sidebar as={AppMenu} vertical inverted={true} animation='push' direction='left' visible={sidebarVisible} onClickMethod={this.toggleSidebarVisibility}/>
+                <Sidebar as={AppMenu} vertical inverted={true} animation='push' direction='left' visible={sidebarVisible} onClick={this.toggleSidebarVisibility}/>
                 <Sidebar.Pusher>
                     <Container>
                         <Header size="huge">
