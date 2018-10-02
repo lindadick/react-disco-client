@@ -4,22 +4,26 @@
 @pageFont          : 'Muli', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 @googleFontName    : 'Muli';
 
-@textColor      : #bbbbbb;
+@textColor      : #eeeeee;
 
 @pageBackground: #000c18;
-@segmentBackground: #1c1c2a; /* Note: this is a custom variable (not from SemanticUI) */
+//@segmentBackground: #1c1c2a; /* Note: this is a custom variable (not from SemanticUI) */
+@segmentBackground: #060621; /* Note: this is a custom variable (not from SemanticUI) */
 
 @borderColor: #262641;
 
 @subtleTransparentBlack : rgba(0, 0, 0, 0.1);
 @transparentBlack : rgba(0, 0, 0, 0.5);
 
-@inputBackground: #051336;
+@inputBackground: #232433;
 
 @selectedTextColor: #395a7a;
 @linkColor: @selectedTextColor;
 @linkHoverColor: #7B6CA6;
 @linkHoverUnderline: underline;
+
+/* TODO stop toggle active from using @green/@positiveColor! */
+@positiveColor: #ff0000;
 
 /* VSCode Abyss colors
 Code: #000c18

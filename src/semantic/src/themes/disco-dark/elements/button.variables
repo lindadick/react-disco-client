@@ -1,5 +1,5 @@
-/*@backgroundColor: @linkColor;
-@background: @backgroundColor @backgroundImage;*/
-/*@textColor: #000000;
-@iconColor: #000000;
-*/
+@backgroundColor: #333333;
+@background: @backgroundColor @backgroundImage;
+@textColor: #ffffff;
+@iconColor: #ffffff;
+
