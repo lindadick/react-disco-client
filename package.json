@@ -12,15 +12,11 @@
     "babel-preset-stage-0": "^6.24.1",
     "compression-webpack-plugin": "^1.1.8",
     "css-loader": "^0.28.10",
-    "extract-text-webpack-plugin": "^2.1.2",
-    "file-loader": "^0.11.2",
     "json-loader": "^0.5.7",
     "node-sass": "^4.9.3",
     "prop-types": "^15.6.0",
     "sass-loader": "^6.0.6",
-    "semantic-ui": "^2.4.0",
     "style-loader": "^0.18.2",
-    "url-loader": "^0.5.9",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.11.0",
     "webpack-dev-server": "^2.11.1",
@@ -35,13 +31,12 @@
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.1.1",
     "react-sortable-hoc": "^0.6.7",
+    "reactstrap": "^6.5.0",
     "semantic-ui-react": "^0.82.5"
   },
   "scripts": {
-    "start": "yarn run build-semantic && webpack-dev-server --config webpack.dev.js",
-    "build": "yarn run build-semantic && webpack --config webpack.prod.js",
-    "build-semantic": "cd src/semantic && gulp build-css build-assets",
-    "watch-semantic": "cd src/semantic && yarn run build-semantic && gulp watch"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"  
   },
   "author": "Linda Dick",
   "repository": "https://github.com/lindadick/react-disco-client.git",
