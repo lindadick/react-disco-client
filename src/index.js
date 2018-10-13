@@ -9,7 +9,7 @@ window.React = React
 
 ReactDOM.render(
   <HashRouter>
-    <App appName="Robinet Disco"/>
+    <App />
   </HashRouter>,
   document.getElementById('react-container')
 );
