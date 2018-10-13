@@ -917,13 +917,17 @@
 .ui.toggle.buttons .active.button,
 .ui.buttons .button.toggle.active,
 .ui.button.toggle.active {
-  background-color: @positiveColor !important;
+  background-color: @backgroundColor !important;
   box-shadow: none !important;
   text-shadow: @invertedTextShadow;
-  color: @invertedTextColor !important;
+  color: @discoTogglePositiveColor !important;
 }
+.ui.button.toggle.active > .icon:not(.button) {
+    color: @discoTogglePositiveColor !important;
+}
+
 .ui.button.toggle.active:hover {
-  background-color: @positiveColorHover !important;
+  background-color: @backgroundColor !important;
   text-shadow: @invertedTextShadow;
   color: @invertedTextColor !important;
 }

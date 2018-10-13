@@ -2,4 +2,4 @@
 @background: @backgroundColor @backgroundImage;
 @textColor: #ffffff;
 @iconColor: #ffffff;
-
+@discoTogglePositiveColor: #ff0000;

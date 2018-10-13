@@ -11,8 +11,6 @@ import History from './History';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
 
-import '../semantic/dist/semantic.min.css';
-
 import {APP_NAME, ICECAST_URL} from '../lib/config';
 
 class AppMenu extends Component {
