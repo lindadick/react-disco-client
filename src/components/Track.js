@@ -84,7 +84,7 @@ export class Track extends Component {
         if (this.props.options['skip']) {
             if (this.state.skipping) {
                 buttons.push({
-                    tooltip: "Skipping track",
+                    tooltip: "Skipping track", //TODO make this a popover?
                     icon: "hourglass-half",
                     spin: true
                 })
@@ -127,7 +127,7 @@ export class Track extends Component {
                     {buttons.map((option, i) =>
                         <Button 
                             type="button"
-                            className={"mr-1"} 
+                            className={"m-1"} 
                             key={"button" + i + this.props.track_id} 
                             id={"button" + i + this.props.track_id} 
                             onClick={option.onClick}
@@ -139,6 +139,7 @@ export class Track extends Component {
                     {this.props.online && (
                         <Button 
                             type="button"
+                            className={"m-1"} 
                             key={"button_shortlist" + this.props.track_id} 
                             id={"button_shortlist" + this.props.track_id} 
                             onClick={this.toggleShortlist}

@@ -35,7 +35,7 @@ export const TrackList = SortableContainer(({tracks, options}) => {
                     { options['showLastPlayed'] ? (
                     <th>Last Played</th>
                     ) : null }
-                    <th>Options</th>
+                    <th className="text-right">Options</th>
                 </tr>
             </thead>
             <tbody>
