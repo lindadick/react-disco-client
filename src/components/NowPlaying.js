@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Card, Table } from 'reactstrap';
+
 import { Track } from './Track';
-import { Table, Header, Loader, Segment } from 'semantic-ui-react';
+import Spinner from './Spinner';
 
 export default class NowPlaying extends Component {
     constructor(props) {
@@ -23,18 +25,18 @@ export default class NowPlaying extends Component {
         };
 
         return (
-            <Segment raised>
-                <Header size="medium" className="now-playing">Now Playing</Header>
+            <Card body className="shadow">
+                <h1>Now Playing</h1>
                 { this.props.currentTrack ? (                   
-                <Table compact basic unstackable className="now-playing">
-                    <Table.Body>
+                <Table borderless responsive size="sm">
+                    <tbody>
                         <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
-                    </Table.Body>
+                    </tbody>
                 </Table>
                 ): (
-                <Loader active />
+                    <Spinner />
                 ) }
-            </Segment>
+            </Card>
         );
     }
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Loader, Message, Table } from 'semantic-ui-react';
+import { Button, Form, FormGroup, Label, Input, Table } from 'reactstrap';
 
-import disco from '../lib/disco'
-import { Album } from './Album'
+import disco from '../lib/disco';
+import Album from './Album';
+import Spinner from './Spinner';
 
 export default class AlbumSearch extends Component {
     constructor(props) {
@@ -15,18 +16,7 @@ export default class AlbumSearch extends Component {
             searching: false
         };
 
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-  
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-    
-        this.setState({
-          [name]: value
-        });
     }
 
     handleSubmit(event) {
@@ -52,49 +42,44 @@ export default class AlbumSearch extends Component {
     render() {
         return (
             <div>
-                <Header as="h1">Search for Albums</Header>
+                <h1>Search for Albums</h1>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Input id="form-input-control-artist" name="artist" value={this.state.artist} label="Artist" placeholder="Artist name" onChange={this.handleInputChange} />
-                    <Form.Input id="form-input-control-title" name="title" value={this.state.title} label="Title" placeholder="Album title" onChange={this.handleInputChange} />
-                    <Button type="submit" icon="search" content="Search" />	
+                    <FormGroup>
+                        <Label for="artist">Artist</Label>
+                        <Input type="text" id="artist" value={this.state.artist} onChange={(e) => this.setState({artist: e.target.value})} />
+                    </FormGroup>                    
+                    <FormGroup>
+                        <Label for="title">Title</Label>
+                        <Input type="text" id="title" value={this.state.title} onChange={(e) => this.setState({title: e.target.value})} />
+                    </FormGroup>                    
+                    <Button type="submit">Search</Button>	
                 </Form>
-                { this.state.searching ? (
-                <Message>
-                    <Loader active />
-                    <p>Searching...</p>
-                </Message>
-                ) : (
-                    null 
+                { this.state.searching && <Spinner /> }
+                { this.state.searchResults && this.state.searchResults.length == 0 && (
+                    <div className="text-danger text-lg">
+                        <p>No results found.</p>
+                    </div>
                 )}
-                { this.state.searchResults && this.state.searchResults.length == 0 ? (
-                <Message negative>
-                    <p>No results found.</p>
-                </Message>
-                ) : (
-                    null 
-                )}
-                { this.state.searchResults && this.state.searchResults.length > 0 ? (
-                <div>
-                    <Header as="h2">Search Results</Header>
-                    <Table basic unstackable compact striped>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Artist</Table.HeaderCell>
-                                <Table.HeaderCell>Title</Table.HeaderCell>
-                                <Table.HeaderCell>Time</Table.HeaderCell>
-                                <Table.HeaderCell>Tracks</Table.HeaderCell>
-                                <Table.HeaderCell>Options</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {this.state.searchResults.map((album, i) =>
-                            <Album key={album.id} options={{sortable: false, addToPlaylist: true}} index={i} {...album}/>	
-                            )}
-                        </Table.Body>
-                    </Table>
-                </div>
-                ) : (
-                    null
+                { this.state.searchResults && this.state.searchResults.length > 0 && (
+                    <div>
+                        <h2>Search Results</h2>
+                        <Table striped>
+                            <thead>
+                                <tr>
+                                    <th>Artist</th>
+                                    <th>Title</th>
+                                    <th>Time</th>
+                                    <th>Tracks</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.searchResults.map((album, i) =>
+                                <Album key={album.id} options={{sortable: false, addToPlaylist: true}} index={i} {...album}/>	
+                                )}
+                            </tbody>
+                        </Table>
+                    </div>
                 )}
             </div>
         );

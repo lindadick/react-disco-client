@@ -1,43 +1,18 @@
-.track-offline {
-    font-style: italic;
-    color: #999999;
-}
+// $theme-colors: (
+//   "primary": #00ff00,
+// );
 
-.track-album-title {
-    font-style: italic;
-}
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
-// TODO figure out how to theme Semantic UI to avoid !important declarations.
-.ui.header:first-child {
-    //TODO this is due to something in the CSS I probably don't understand...
-    margin-top: 0.5em !important;
-}
+// // TODO only include parts of Bootstrap that we need
+// // Required
+// @import "../node_modules/bootstrap/scss/functions";
+// @import "../node_modules/bootstrap/scss/variables";
+// @import "../node_modules/bootstrap/scss/mixins";
+// // Optional
+// @import "../node_modules/bootstrap/scss/reboot";
+// @import "../node_modules/bootstrap/scss/type";
+// @import "../node_modules/bootstrap/scss/images";
+// @import "../node_modules/bootstrap/scss/code";
+// @import "../node_modules/bootstrap/scss/grid";
 
-.ui.header.now-playing {
-    margin-top: 0em !important;
-}
-
-table.now-playing {
-    border: 0px !important;
-
-    td {
-        padding: 0 !important;
-    }
-}
-
-table.raised {
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.15) !important;
-}
-
-.ui.button.toggle.active, .ui.buttons .button.toggle.active, .ui.toggle.buttons .active.button {
-    background-color: rgb(224, 225, 226) !important;
-    color: #ff0000 !important;
-}
-
-.ui.button.toggle.active:hover, .ui.buttons .button.toggle.active:hover, .ui.toggle.buttons .active.button:hover {
-    background-color: #ff0000 !important;
-}
-
-.button-added {
-    color: #21ba45 !important;
-}

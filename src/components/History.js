@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Grid, Header, Loader } from 'semantic-ui-react';
 import moment from 'moment';
 
 import disco from '../lib/disco';
 import { TrackList } from './TrackList';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
+import Spinner from './Spinner';
 
 export default class History extends Component {
     constructor(props) {
@@ -25,11 +24,11 @@ export default class History extends Component {
     render() {
         return (
             <div>
-                <Header as="h1">History for {moment().format('LL')}</Header>
+                <h1>History for {moment().format('LL')}</h1>
                 { this.state.history.length > 0 ? (                   
-                <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true}} />
+                    <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true}} />
                 ): (
-                <Loader active />
+                    <Spinner />
                 ) }
             </div>
         );

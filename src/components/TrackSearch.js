@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Form, Header, Loader, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import disco from '../lib/disco'
-import { TrackList } from './TrackList'
+import disco from '../lib/disco';
+import { TrackList } from './TrackList';
+import Spinner from './Spinner';
 
 export default class TrackSearch extends Component {
     constructor(props) {
@@ -16,18 +18,7 @@ export default class TrackSearch extends Component {
             allAdded: false
         };
 
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-    
-        this.setState({
-          [name]: value
-        });
     }
 
     handleSubmit(event) {
@@ -65,39 +56,38 @@ export default class TrackSearch extends Component {
     render() {
         return (
             <div>
-                <Header as="h1">Search for Tracks</Header>
+                <h1>Search for Tracks</h1>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Input id="form-input-control-artist" name="artist" value={this.state.artist} label="Artist" placeholder="Artist name" onChange={this.handleInputChange} />
-                    <Form.Input id="form-input-control-title" name="title" value={this.state.title} label="Title" placeholder="Track title" onChange={this.handleInputChange} />
-                    <Button type="submit" icon="search" content="Search" />	
+                    <FormGroup>
+                        <Label for="artist">Artist</Label>
+                        <Input type="text" id="artist" value={this.state.artist} onChange={(e) => this.setState({artist: e.target.value})} />
+                    </FormGroup>                    
+                    <FormGroup>
+                        <Label for="title">Title</Label>
+                        <Input type="text" id="title" value={this.state.title} onChange={(e) => this.setState({title: e.target.value})} />
+                    </FormGroup>                    
+                    <Button type="submit">Search</Button>	
                 </Form>
-                { this.state.searching ? (
-                <Message>
-                    <Loader active />
-                    <p>Searching...</p>
-                </Message>
-                ) : (
-                    null 
+                { this.state.searching && <Spinner /> }
+                { this.state.searchResults && this.state.searchResults.length == 0 && (
+                    <div className="text-danger text-lg">
+                        <p>No results found.</p>
+                    </div>
                 )}
-                { this.state.searchResults && this.state.searchResults.length == 0 ? (
-                <Message negative>
-                    <p>No results found.</p>
-                </Message>
-                ) : (
-                    null 
-                )}
-                { this.state.searchResults && this.state.searchResults.length > 0 ? (
-                <div>
-                    <Header as="h2">Search Results</Header>
-                    <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
-                    { this.state.allAdded ? (
-                    <Button icon="check" className="button-added" content="All tracks added to current playlist" />
-                    ) : (
-                    <Button onClick={this.addAllToCurrentPlaylist.bind(this)} icon="add" content="Add all tracks to current playlist" />
-                    )}
-                </div>
-                ) : (
-                    null
+                { this.state.searchResults && this.state.searchResults.length > 0 && (
+                    <div>
+                        <h2>Search Results</h2>
+                        <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
+                        { this.state.allAdded ? (
+                            <Button disabled>
+                                <FontAwesomeIcon icon={["fas", "check"]} color="green" /> All tracks added to current playlist
+                            </Button>
+                        ) : (
+                            <Button onClick={this.addAllToCurrentPlaylist.bind(this)}>
+                                <FontAwesomeIcon icon={["fas", "plus"]} /> Add all tracks to current playlist
+                            </Button>
+                        )}
+                    </div>
                 )}
             </div>
         );

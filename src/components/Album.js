@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import { Button, Popup, Table } from 'semantic-ui-react';
+import { Button } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import disco from '../lib/disco';
 
-export class Album extends Component {
+export default class Album extends Component {
 
     constructor(props) {
         super(props);
@@ -28,42 +29,50 @@ export class Album extends Component {
         if (this.props.options['addToPlaylist']) {
             if (this.state.added) {
                 buttons.push({
-                    popup: "Added!",
+                    tooltip: "Added!",
                     icon: "check",
-                    className: "button-added"
+                    color: "green"
                 })
             } else {
                 buttons.push({
                     onClick: this.addToCurrentPlaylist,
-                    popup: "Add album to playlist",
-                    className: "button-add",
-                    icon: "add"
+                    tooltip: "Add album to playlist",
+                    icon: "plus"
                 })
             }
         }
 
         return (
-            <Table.Row>
-                <Table.Cell>
+            <tr>
+                <td>
                     {this.props.artist}
-                </Table.Cell>
-                <Table.Cell>
+                </td>
+                <td>
                     {this.props.title}
-                </Table.Cell>
-                <Table.Cell collapsing>
+                </td>
+                <td>
                     {this.props.duration}
-                </Table.Cell>
-                <Table.Cell collapsing>
+                </td>
+                <td>
                     {this.props.track_count}
-                </Table.Cell>
-                <Table.Cell collapsing>
+                </td>
+                <td className="text-right">
                     {buttons.map((option, i) =>
-                            <Popup key={i} trigger={<Button loading={option.loading} className={option.className} 
-                                icon={option.icon} onClick={option.onClick} />} 
-                                content={option.popup} on='hover' />
+                        <React.Fragment>
+                            <Button 
+                                type="button"
+                                key={"button" + i + this.props.album_id} 
+                                id={"button" + i + this.props.album_id} 
+                                className={"mr-1"} 
+                                onClick={option.onClick}
+                                data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
+                            >
+                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} color={option.color} onClick={option.onClick}/>
+                            </Button>
+                        </React.Fragment>
                     )}
-                </Table.Cell>
-            </Table.Row>
+                </td>
+            </tr>
         )
     }
 }

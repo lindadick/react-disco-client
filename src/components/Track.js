@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import { Button } from 'reactstrap';
 import moment from 'moment';
-import {SortableElement, SortableHandle} from 'react-sortable-hoc';
-import { Button, Table, Icon, Message, Popup } from 'semantic-ui-react';
+import { SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import disco from '../lib/disco';
 
-const DragHandle = SortableHandle(() => <Icon name="move" label="Reorder Tracks" />);
+const DragHandle = SortableHandle(() => <FontAwesomeIcon icon={["fas", "arrows-alt"]}/>);
 
 export class Track extends Component {
 
@@ -59,16 +60,15 @@ export class Track extends Component {
         if (this.props.options['addToPlaylist'] && this.props.online) {
             if (this.state.added) {
                 buttons.push({
-                    popup: "Added!",
+                    tooltip: "Added!",
                     icon: "check",
-                    className: "button-added"
+                    color: "green"
                 })
             } else {
                 buttons.push({
                     onClick: this.addToCurrentPlaylist,
-                    popup: "Add to playlist",
-                    className: "button-add",
-                    icon: "add"
+                    tooltip: "Add to playlist",
+                    icon: "plus"
                 })
             }
         }
@@ -76,25 +76,23 @@ export class Track extends Component {
         if (this.props.options['removeFromPlaylist']) {
             buttons.push({
                 onClick: this.removeFromCurrentPlaylist,
-                popup: "Remove from playlist",
-                className: "button-remove",
-                icon: "delete"
+                tooltip: "Remove from playlist",
+                icon: "times"
             })
         }
 
         if (this.props.options['skip']) {
             if (this.state.skipping) {
                 buttons.push({
-                    popup: "Skipping track",
-                    icon: "hourglass half",
-                    className: "button-skipping"
+                    tooltip: "Skipping track",
+                    icon: "hourglass-half",
+                    spin: true
                 })
             } else {
                 buttons.push({
                     onClick: this.skipCurrentTrack,
-                    popup: "Skip this track",
-                    className: "button-skip",
-                    icon: "step forward"
+                    tooltip: "Skip this track",
+                    icon: "step-forward"
                 })
             }
         }
@@ -102,51 +100,59 @@ export class Track extends Component {
         let trackClassName = "";
 
         if (!this.props.online) {
-            trackClassName = "track-offline";
+            trackClassName = "text-muted font-italic";
             icons.push({
-                popup: "This track is currently offline",
-                icon: "dont"
+                tooltip: "This track is currently offline",
+                icon: "ban"
             });
         }
 
         return (
-            <Table.Row>
+            <tr>
                 { this.props.options['sortable'] ? (
-                <Table.Cell collapsing>
+                <td>
                     <DragHandle />
-                </Table.Cell>
+                </td>
                 ) : null }
-                <Table.Cell className={trackClassName}>
+                <td className={trackClassName}>
                     {icons.map((option, i) =>
-                    <Popup key={i} trigger={<Icon name={option.icon} />} content={option.popup} on='hover' />
+                        <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
                     )}
                     {this.props.artist} - {this.props.title}<br/>
-                    <span className="track-album-title">{this.props.album_title}</span>
-                </Table.Cell>
-                { this.props.options['showDuration'] ? (
-                <Table.Cell collapsing>
-                    {this.props.duration}
-                </Table.Cell>
-                ) : null }
-                { this.props.options['showLastPlayed'] ? (
-                <Table.Cell>
-                    {moment.unix(parseInt(this.props.last_play, 16)).format('MMM D YYYY, H:mm')}
-                </Table.Cell>
-                ) : null }
-                <Table.Cell collapsing>
+                    <span className="font-italic">{this.props.album_title}</span>
+                </td>
+                { this.props.options['showDuration'] && <td>{this.props.duration}</td> }
+                { this.props.options['showLastPlayed'] && <td>{moment.unix(parseInt(this.props.last_play, 16)).format('MMM D YYYY, H:mm')}</td> }
+                <td className="text-right">
                     {buttons.map((option, i) =>
-                    <Popup key={i} trigger={<Button loading={option.loading} className={option.className} 
-                        icon={option.icon} onClick={option.onClick} />} 
-                        content={option.popup} on='hover' />
+                        <Button 
+                            type="button"
+                            className={"mr-1"} 
+                            key={"button" + i + this.props.track_id} 
+                            id={"button" + i + this.props.track_id} 
+                            onClick={option.onClick}
+                            data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
+                            >
+                            <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} spin={option.spin} color={option.color}/>
+                        </Button>
                     )}
-                    {this.props.online? (
-                    <Popup trigger={<Button className="shortlist-button" 
-                        toggle active={this.props.shortlist} 
-                        icon="heart" onClick={this.toggleShortlist} />} 
-                        content="Toggle shortlist status" on='hover' />
-                    ) : null }
-                </Table.Cell>
-            </Table.Row>
+                    {this.props.online && (
+                        <Button 
+                            type="button"
+                            key={"button_shortlist" + this.props.track_id} 
+                            id={"button_shortlist" + this.props.track_id} 
+                            onClick={this.toggleShortlist}
+                            data-toggle="tooltip" data-placement="top" title="Toggle shortlist status" //TODO use Bootstrap's fancy tooltips
+                        >
+                            {this.props.shortlist? (
+                                <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["fas", "heart"]} color="red"/>
+                            ) : (
+                                <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["far", "heart"]}/>
+                            )}
+                        </Button>
+                    )}
+                </td>
+            </tr>
         );
     }
 

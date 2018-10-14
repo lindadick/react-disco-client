@@ -1,6 +1,6 @@
 import { SortableTrack, Track } from './Track'
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table } from 'reactstrap';
 import { SortableContainer } from 'react-sortable-hoc';
 
 function renderTracks(tracks, options) {
@@ -22,25 +22,25 @@ function renderTracks(tracks, options) {
 export const TrackList = SortableContainer(({tracks, options}) => {
 
     return (
-        <Table basic compact unstackable striped className="raised">
-            <Table.Header>
-                <Table.Row>
+        <Table striped>
+            <thead>
+                <tr>
                     { options['sortable'] ? (
-                    <Table.HeaderCell></Table.HeaderCell>
+                    <th></th>
                     ) : null }                   
-                    <Table.HeaderCell>Title</Table.HeaderCell>
+                    <th>Title</th>
                     { options['showDuration'] ? (
-                    <Table.HeaderCell>Duration</Table.HeaderCell>
+                    <th>Duration</th>
                     ) : null }
                     { options['showLastPlayed'] ? (
-                    <Table.HeaderCell>Last Played</Table.HeaderCell>
+                    <th>Last Played</th>
                     ) : null }
-                    <Table.HeaderCell>Options</Table.HeaderCell>
-                </Table.Row>
-            </Table.Header>
-            <Table.Body>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
             { renderTracks(tracks, options) }
-            </Table.Body>
+            </tbody>
         </Table>
     );
 
