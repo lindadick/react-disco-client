@@ -22,20 +22,20 @@ function renderTracks(tracks, options) {
 export const TrackList = SortableContainer(({tracks, options}) => {
 
     return (
-        <Table striped>
+        <Table striped responsive>
             <thead>
                 <tr>
                     { options['sortable'] ? (
                     <th></th>
                     ) : null }                   
                     <th>Title</th>
-                    { options['showDuration'] ? (
-                    <th>Duration</th>
-                    ) : null }
+                    <th className="disco-hide-sm">Duration</th>
                     { options['showLastPlayed'] ? (
                     <th>Last Played</th>
                     ) : null }
-                    <th className="text-right">Options</th>
+                    <th className="text-right">
+                        <span className="disco-hide-sm">Options</span>
+                    </th>
                 </tr>
             </thead>
             <tbody>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Track } from './Track';
 import Spinner from './Spinner';
@@ -25,18 +26,17 @@ export default class NowPlaying extends Component {
         };
 
         return (
-            <Card body className="shadow">
-                <h1>Now Playing</h1>
+            <div className="border bg-white px-2">
                 { this.props.currentTrack ? (                   
-                <Table borderless responsive size="sm">
-                    <tbody>
-                        <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
-                    </tbody>
-                </Table>
+                    <Table borderless responsive size="sm" className="mb-0">
+                        <tbody>
+                            <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
+                        </tbody>
+                    </Table>
                 ): (
                     <Spinner />
                 ) }
-            </Card>
+            </div>
         );
     }
 }

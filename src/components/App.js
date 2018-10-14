@@ -82,24 +82,30 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col>
-                        <AppMenu />
-                        <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={APP_NAME} />
-                        <Switch>
-                            <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
-                            <Route path="/search" component={TrackSearch} />
-                            <Route path="/albums" component={AlbumSearch} />
-                            <Route path="/history" component={History} />
-                        </Switch>
-                        <Card body className="text-center shadow">
+            <React.Fragment>
+                <Container className="p-0">
+                    <AppMenu />
+                    <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={APP_NAME} />
+                </Container>
+                <Container>
+                    <Row>
+                        <Col className="p-2">
+                            <Switch>
+                                <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
+                                <Route path="/search" component={TrackSearch} />
+                                <Route path="/albums" component={AlbumSearch} />
+                                <Route path="/history" component={History} />
+                            </Switch>
+                        </Col>                   
+                    </Row>
+                    <Row>
+                        <Col className="text-center border p-2">
                             {APP_NAME} client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client">
                             <FontAwesomeIcon icon={faGithub}/></a>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+                        </Col>
+                    </Row>
+                </Container>
+            </React.Fragment>
         );
     }
 }
@@ -124,8 +130,8 @@ class AppMenu extends React.Component {
           <Navbar color="dark" dark expand="md">
             <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
+            <Collapse isOpen={this.state.isOpen} onClick={this.toggle} navbar>
+              <Nav className="mr-auto" navbar>
                   <NavItem>
                       <NavLink href='#/'>Current Playlist</NavLink>
                   </NavItem>
@@ -138,12 +144,14 @@ class AppMenu extends React.Component {
                   <NavItem>
                       <NavLink href='#/history'>History</NavLink>
                   </NavItem>
-                  { ICECAST_URL &&
-                      <NavItem>
-                          <NavLink  href={ICECAST_URL} target='_blank'>Icecast</NavLink>
-                      </NavItem>
-                  }
               </Nav>
+                { ICECAST_URL &&
+                <Nav className="ml-auto" navbar>
+                    <NavItem>
+                        <NavLink  href={ICECAST_URL} target='_blank'>Icecast</NavLink>
+                    </NavItem>
+                </Nav>
+                }
             </Collapse>
           </Navbar>
         </React.Fragment>

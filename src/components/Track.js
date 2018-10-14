@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 import moment from 'moment';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Col, Row } from 'reactstrap';
 
 import disco from '../lib/disco';
 
@@ -121,13 +122,15 @@ export class Track extends Component {
                     {this.props.artist} - {this.props.title}<br/>
                     <span className="font-italic">{this.props.album_title}</span>
                 </td>
-                { this.props.options['showDuration'] && <td>{this.props.duration}</td> }
+                { this.props.options['showDuration'] && <td className="disco-hide-sm">{this.props.duration}</td> }
                 { this.props.options['showLastPlayed'] && <td>{moment.unix(parseInt(this.props.last_play, 16)).format('MMM D YYYY, H:mm')}</td> }
                 <td className="text-right">
+                <Row>
                     {buttons.map((option, i) =>
+                    <Col key={"buttoncol" + i + this.props.track_id}>
                         <Button 
                             type="button"
-                            className={"m-1"} 
+                            className={"m-1 btn-block"} 
                             key={"button" + i + this.props.track_id} 
                             id={"button" + i + this.props.track_id} 
                             onClick={option.onClick}
@@ -135,11 +138,13 @@ export class Track extends Component {
                             >
                             <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} spin={option.spin} color={option.color}/>
                         </Button>
+                    </Col>
                     )}
                     {this.props.online && (
+                        <Col>
                         <Button 
                             type="button"
-                            className={"m-1"} 
+                            className={"m-1 btn-block"} 
                             key={"button_shortlist" + this.props.track_id} 
                             id={"button_shortlist" + this.props.track_id} 
                             onClick={this.toggleShortlist}
@@ -151,7 +156,9 @@ export class Track extends Component {
                                 <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["far", "heart"]}/>
                             )}
                         </Button>
+                        </Col>
                     )}
+                    </Row>
                 </td>
             </tr>
         );

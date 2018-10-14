@@ -63,7 +63,7 @@ export default class AlbumSearch extends Component {
                 { this.state.searchResults && this.state.searchResults.length > 0 && (
                     <div>
                         <h2>Search Results</h2>
-                        <Table striped>
+                        <Table striped responsive>
                             <thead>
                                 <tr>
                                     <th>Artist</th>
