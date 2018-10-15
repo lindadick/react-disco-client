@@ -26,7 +26,7 @@ export default class History extends Component {
         return (
             <Row>
                 <Col>
-                    <h1>History for {moment().format('LL')}</h1>
+                    <h1>History<br/><span className="text-muted small">{moment().format('LL')}</span></h1>
                     { this.state.history.length > 0 ? (                   
                         <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true}} />
                     ): (

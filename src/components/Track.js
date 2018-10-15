@@ -101,7 +101,7 @@ export class Track extends Component {
         let trackClassName = "";
 
         if (!this.props.online) {
-            trackClassName = "text-muted font-italic";
+            trackClassName = "text-muted";
             icons.push({
                 tooltip: "This track is currently offline",
                 icon: "ban"
@@ -109,58 +109,67 @@ export class Track extends Component {
         }
 
         return (
-            <tr>
+            <Row className={this.props.rowClassName}>
                 { this.props.options['sortable'] ? (
-                <td>
+                <Col xs="auto">
                     <DragHandle />
-                </td>
+                </Col>
                 ) : null }
-                <td className={trackClassName}>
+                { this.props.options['showLastPlayed'] && <Col xs="auto">{moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}</Col> }
+                <Col className={trackClassName}>
                     {icons.map((option, i) =>
                         <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
                     )}
                     {this.props.artist} - {this.props.title}<br/>
-                    <span className="font-italic">{this.props.album_title}</span>
-                </td>
-                { this.props.options['showDuration'] && <td className="disco-hide-sm">{this.props.duration}</td> }
-                { this.props.options['showLastPlayed'] && <td>{moment.unix(parseInt(this.props.last_play, 16)).format('MMM D YYYY, H:mm')}</td> }
-                <td className="text-right">
-                <Row>
-                    {buttons.map((option, i) =>
-                    <Col key={"buttoncol" + i + this.props.track_id}>
-                        <Button 
-                            type="button"
-                            className={"m-1 btn-block"} 
-                            key={"button" + i + this.props.track_id} 
-                            id={"button" + i + this.props.track_id} 
-                            onClick={option.onClick}
-                            data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
-                            >
-                            <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} spin={option.spin} color={option.color}/>
-                        </Button>
-                    </Col>
-                    )}
-                    {this.props.online && (
-                        <Col>
-                        <Button 
-                            type="button"
-                            className={"m-1 btn-block"} 
-                            key={"button_shortlist" + this.props.track_id} 
-                            id={"button_shortlist" + this.props.track_id} 
-                            onClick={this.toggleShortlist}
-                            data-toggle="tooltip" data-placement="top" title="Toggle shortlist status" //TODO use Bootstrap's fancy tooltips
-                        >
-                            {this.props.shortlist? (
-                                <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["fas", "heart"]} color="red"/>
-                            ) : (
-                                <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["far", "heart"]}/>
-                            )}
-                        </Button>
+                    <span className="font-italic text-muted">
+                        <FontAwesomeIcon className="mr-1" key={"duration" + this.props.track_id} icon={["fas", "compact-disc"]} data-toggle="tooltip" data-placement="top" title="Album"/>
+                        {this.props.album_title}
+                        { this.props.options['showDuration'] && (
+                            <React.Fragment>
+                                <br/>
+                                <FontAwesomeIcon className="mr-1" key={"duration" + this.props.track_id} icon={["fas", "clock"]} data-toggle="tooltip" data-placement="top" title="Track duration"/>
+                                {this.props.duration}
+                            </React.Fragment>
+                        ) }
+                    </span>
+                </Col>
+                <Col xs="3" lg="2" className="ml-auto">
+                    <Row noGutters>
+                        {buttons.map((option, i) =>
+                        <Col key={"buttoncol" + i + this.props.track_id} className="p-1">
+                            <Button 
+                                type="button"
+                                className={"btn-block m-1"} 
+                                key={"button" + i + this.props.track_id} 
+                                id={"button" + i + this.props.track_id} 
+                                onClick={option.onClick}
+                                data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
+                                >
+                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} spin={option.spin} color={option.color}/>
+                            </Button>
                         </Col>
-                    )}
+                        )}
+                        {this.props.online && (
+                        <Col className="p-1">
+                            <Button 
+                                type="button"
+                                className={"btn-block m-1"} 
+                                key={"button_shortlist" + this.props.track_id} 
+                                id={"button_shortlist" + this.props.track_id} 
+                                onClick={this.toggleShortlist}
+                                data-toggle="tooltip" data-placement="top" title="Toggle shortlist status" //TODO use Bootstrap's fancy tooltips
+                            >
+                                {this.props.shortlist? (
+                                    <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["fas", "heart"]} color="red"/>
+                                ) : (
+                                    <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["far", "heart"]}/>
+                                )}
+                            </Button>
+                        </Col>
+                        )}
                     </Row>
-                </td>
-            </tr>
+                </Col>
+            </Row>
         );
     }
 

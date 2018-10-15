@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import disco from '../lib/disco';
 import Album from './Album';
@@ -56,29 +56,16 @@ export default class AlbumSearch extends Component {
                 </Form>
                 { this.state.searching && <Spinner /> }
                 { this.state.searchResults && this.state.searchResults.length == 0 && (
-                    <div className="text-danger text-lg">
+                    <div className="text-danger text-lg mt-3">
                         <p>No results found.</p>
                     </div>
                 )}
                 { this.state.searchResults && this.state.searchResults.length > 0 && (
-                    <div>
+                    <div className="mt-3">
                         <h2>Search Results</h2>
-                        <Table striped responsive>
-                            <thead>
-                                <tr>
-                                    <th>Artist</th>
-                                    <th>Title</th>
-                                    <th>Time</th>
-                                    <th>Tracks</th>
-                                    <th>Options</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.searchResults.map((album, i) =>
-                                <Album key={album.id} options={{sortable: false, addToPlaylist: true}} index={i} {...album}/>	
-                                )}
-                            </tbody>
-                        </Table>
+                        {this.state.searchResults.map((album, i) =>
+                            <Album key={album.id} options={{sortable: false, addToPlaylist: true}} index={i} {...album} rowClassName="border-bottom py-1"/>	
+                        )}
                     </div>
                 )}
             </div>

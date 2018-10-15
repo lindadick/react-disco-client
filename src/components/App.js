@@ -83,13 +83,11 @@ export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Container className="p-0">
-                    <AppMenu />
-                    <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={APP_NAME} />
-                </Container>
+                <AppMenu />
+                <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={APP_NAME} />
                 <Container>
                     <Row>
-                        <Col className="p-2">
+                        <Col className="mb-3">
                             <Switch>
                                 <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
                                 <Route path="/search" component={TrackSearch} />
@@ -127,33 +125,35 @@ class AppMenu extends React.Component {
     render() {
       return (
         <React.Fragment>
-          <Navbar color="dark" dark expand="md">
-            <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} onClick={this.toggle} navbar>
-              <Nav className="mr-auto" navbar>
-                  <NavItem>
-                      <NavLink href='#/'>Current Playlist</NavLink>
-                  </NavItem>
-                  <NavItem>
-                      <NavLink  href='#/search'>Tracks</NavLink>
-                  </NavItem>
-                  <NavItem>
-                      <NavLink  href='#/albums'>Albums</NavLink>
-                  </NavItem>
-                  <NavItem>
-                      <NavLink href='#/history'>History</NavLink>
-                  </NavItem>
-              </Nav>
-                { ICECAST_URL &&
-                <Nav className="ml-auto" navbar>
-                    <NavItem>
-                        <NavLink  href={ICECAST_URL} target='_blank'>Icecast</NavLink>
-                    </NavItem>
-                </Nav>
-                }
-            </Collapse>
-          </Navbar>
+            <Navbar color="dark" dark expand="md">
+                <Container>
+                    <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} onClick={this.toggle} navbar>
+                    <Nav className="mr-auto" navbar>
+                        <NavItem>
+                            <NavLink href='#/'>Current Playlist</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink  href='#/search'>Tracks</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink  href='#/albums'>Albums</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href='#/history'>History</NavLink>
+                        </NavItem>
+                    </Nav>
+                        { ICECAST_URL &&
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink  href={ICECAST_URL} target='_blank'>Icecast</NavLink>
+                            </NavItem>
+                        </Nav>
+                        }
+                    </Collapse>
+                </Container>
+            </Navbar>
         </React.Fragment>
       );
     }

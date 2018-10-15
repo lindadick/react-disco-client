@@ -12,15 +12,10 @@ $h6-font-size:                $font-size-base * 1;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-@include media-breakpoint-down(sm) {
-    .disco-hide-sm {
-        display: none;
-    }
-}
-
-@include media-breakpoint-up(md) {
-    .disco-show-sm {
-        display: none;
+/* Make buttons slightly larger on mobile phones */
+@include media-breakpoint-between(xs,sm) {
+    .btn {
+        @include button-size($input-btn-padding-y-lg, $input-btn-padding-x, $font-size-base, $line-height-sm, $btn-border-radius-sm);
     }
 }
 
