@@ -1,8 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
-import { Button, Container, Grid, Icon, Menu, Header, Responsive, Segment, Sidebar } from 'semantic-ui-react'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { 
+    Card, 
+    Col, 
+    Collapse,
+    Container, 
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem, 
+    NavLink, 
+    Row, 
+} from 'reactstrap';
+  
 import disco from '../lib/disco';
 
 import TrackSearch from './TrackSearch';
@@ -12,34 +28,7 @@ import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
 import {APP_NAME, ICECAST_URL} from '../lib/config';
 
-import '../semantic/dist/semantic.min.css';
-
-class AppMenu extends Component {
-    state = { }
-
-    handleItemClick = (e, { name }) => {
-        this.setState({ activeItem: name });        
-        if (this.props.onClickMethod != null) {
-            this.props.onClickMethod();
-        }
-    }
-
-    render() {
-        const { activeItem } = this.state
-
-        return (
-            <Menu {...this.props}>
-                <Menu.Item href='#/' name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>Current Playlist</Menu.Item>
-                <Menu.Item href='#/search' name='search' active={activeItem === 'search'} onClick={this.handleItemClick}>Tracks</Menu.Item>
-                <Menu.Item href='#/albums' name='albums' active={activeItem === 'albums'} onClick={this.handleItemClick}>Albums</Menu.Item>
-                <Menu.Item href='#/history' name='history' active={activeItem === 'history'} onClick={this.handleItemClick}>History</Menu.Item>
-                { ICECAST_URL &&
-                    <Menu.Item href={ICECAST_URL} name='icecast' target='_blank' position='right' onClick={this.handleItemClick}>Icecast</Menu.Item>
-                }
-           </Menu>
-        )
-    }    
-}
+library.add(fas, far, faGithub);
 
 export default class App extends React.Component {
     constructor(props) {
@@ -49,10 +38,7 @@ export default class App extends React.Component {
             currentTrack: null,
             currentPlaylist: [],
             upcomingPlaylist: [],
-            sidebarVisible: false
         }
-
-        this.toggleSidebarVisibility = this.toggleSidebarVisibility.bind(this);
     }
 
     onError(error){
@@ -94,38 +80,82 @@ export default class App extends React.Component {
         clearInterval(this.interval);
     }
 
-    toggleSidebarVisibility() {
-        this.setState({ sidebarVisible: !this.state.sidebarVisible });
-    }
-  
     render() {
-        const sidebarVisible = this.state.sidebarVisible;
-
         return (
-            <Sidebar.Pushable>
-                <Sidebar as={AppMenu} vertical inverted={true} animation='push' direction='left' visible={sidebarVisible} onClick={this.toggleSidebarVisibility}/>
-                <Sidebar.Pusher>
-                    <Container>
-                        <Header size="huge">
-                            <Responsive maxWidth={767} as={Icon} name="sidebar" size ="small" onClick={this.toggleSidebarVisibility} />
-                            {APP_NAME}
-                        </Header>
-                        <Responsive minWidth={768}>
-                            <AppMenu inverted/>
-                        </Responsive>
-                        <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={APP_NAME} />
-                        <Switch>
-                            <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
-                            <Route path="/search" component={TrackSearch} />
-                            <Route path="/albums" component={AlbumSearch} />
-                            <Route path="/history" component={History} />
-                        </Switch>
-                        <Segment textAlign="center" size="mini">
-                            {APP_NAME} client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client"><Icon name="github" link={true} /></a>
-                        </Segment>
-                    </Container>
-                </Sidebar.Pusher>
-            </Sidebar.Pushable>
+            <React.Fragment>
+                <AppMenu />
+                <NowPlaying currentTrack={this.state.currentTrack} updateTitle={this.updateDocumentTitle} appName={APP_NAME} />
+                <Container>
+                    <Row>
+                        <Col className="mb-3">
+                            <Switch>
+                                <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
+                                <Route path="/search" component={TrackSearch} />
+                                <Route path="/albums" component={AlbumSearch} />
+                                <Route path="/history" component={History} />
+                            </Switch>
+                        </Col>                   
+                    </Row>
+                    <Row>
+                        <Col className="text-center border p-2">
+                            {APP_NAME} client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client">
+                            <FontAwesomeIcon icon={faGithub}/></a>
+                        </Col>
+                    </Row>
+                </Container>
+            </React.Fragment>
         );
     }
 }
+
+class AppMenu extends React.Component {
+    constructor(props) {
+      super(props);
+  
+      this.toggle = this.toggle.bind(this);
+      this.state = {
+        isOpen: false
+      };
+    }
+    toggle() {
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+    }
+    render() {
+      return (
+        <React.Fragment>
+            <Navbar color="dark" dark expand="md">
+                <Container>
+                    <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} onClick={this.toggle} navbar>
+                    <Nav className="mr-auto" navbar>
+                        <NavItem>
+                            <NavLink href='#/'>Current Playlist</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink  href='#/search'>Tracks</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink  href='#/albums'>Albums</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href='#/history'>History</NavLink>
+                        </NavItem>
+                    </Nav>
+                        { ICECAST_URL &&
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink  href={ICECAST_URL} target='_blank'>Icecast</NavLink>
+                            </NavItem>
+                        </Nav>
+                        }
+                    </Collapse>
+                </Container>
+            </Navbar>
+        </React.Fragment>
+      );
+    }
+  }
+  

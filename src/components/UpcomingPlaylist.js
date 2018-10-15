@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import disco from '../lib/disco';
 import { TrackList } from './TrackList';
-import { arrayMove } from 'react-sortable-hoc';
-import { Header, Loader, Message, Segment } from 'semantic-ui-react';
+import Spinner from './Spinner';
 
 export default class UpcomingPlaylist extends Component {
 
@@ -34,17 +33,14 @@ export default class UpcomingPlaylist extends Component {
         if (this.props.upcomingPlaylist && this.props.upcomingPlaylist.length > 0) {
             return (
                 <div>
-                    <Header as="h1">Coming Up</Header>
+                    <h1>Coming Up</h1>
                     { this.state.moving ? (
-                    <Message>
-                        <Loader active />
-                        <p>Reordering playlist...</p>
-                    </Message>
+                        <Spinner />
                     ) : (
-                    <TrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                    useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: true}} />
+                        <TrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
+                        useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: true}} />
                     )}
-                    </div>
+                </div>
             );
         } else {
             return null;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Container } from 'reactstrap';
+
 import { Track } from './Track';
-import { Table, Header, Loader, Segment } from 'semantic-ui-react';
+import Spinner from './Spinner';
 
 export default class NowPlaying extends Component {
     constructor(props) {
@@ -19,22 +21,20 @@ export default class NowPlaying extends Component {
         let trackOptions = {
             addToPlaylist: false,
             sortable: false,
-            skip: true
+            skip: true,
+            showDuration: true
         };
 
         return (
-            <Segment raised>
-                <Header size="medium" className="now-playing">Now Playing</Header>
-                { this.props.currentTrack ? (                   
-                <Table compact basic unstackable className="now-playing">
-                    <Table.Body>
+            <div className="border-bottom bg-light py-2 mb-2">
+                <Container>
+                    { this.props.currentTrack ? (                   
                         <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
-                    </Table.Body>
-                </Table>
-                ): (
-                <Loader active />
-                ) }
-            </Segment>
+                    ): (
+                        <Spinner />
+                    ) }
+                </Container>
+            </div>
         );
     }
 }
