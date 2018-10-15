@@ -127,7 +127,7 @@ class AppMenu extends React.Component {
         <React.Fragment>
             <Navbar color="dark" dark expand="md">
                 <Container>
-                    <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
+                    <NavbarBrand href="#/">{APP_NAME}</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} onClick={this.toggle} navbar>
                     <Nav className="mr-auto" navbar>
