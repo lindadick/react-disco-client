@@ -26,7 +26,7 @@ import AlbumSearch from './AlbumSearch';
 import History from './History';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
-import {APP_NAME, ICECAST_URL} from '../lib/config';
+import {APP_NAME, ICECAST_URL} from 'discoConfig';
 
 library.add(fas, far, faGithub);
 
@@ -96,13 +96,12 @@ export default class App extends React.Component {
                             </Switch>
                         </Col>                   
                     </Row>
-                    <Row>
-                        <Col className="text-center border p-2">
-                            {APP_NAME} client created by Linda Dick <a href="https://github.com/lindadick/react-disco-client">
-                            <FontAwesomeIcon icon={faGithub}/></a>
-                        </Col>
-                    </Row>
                 </Container>
+                <div className="text-center border p-2">
+                    <Container>
+                        {APP_NAME} created by John Howard. Client and API by Linda and Michael Dick.
+                    </Container>
+                </div>
             </React.Fragment>
         );
     }
