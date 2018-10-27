@@ -1,16 +1,6 @@
 {
-    "env": {
-       "es6": true,
-       "node": true
-    },
+    "extends": "react-app",
     "parserOptions": {
-      "ecmaVersion": 6,
-      "ecmaFeatures": {
-          "jsx": true
-      }
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ]
+        "sourceType": "module"
+    }
 }

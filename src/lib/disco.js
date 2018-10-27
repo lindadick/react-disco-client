@@ -71,3 +71,4 @@ var disco = {
 }
 
 module.exports = disco;
+module.exports.default = disco;
