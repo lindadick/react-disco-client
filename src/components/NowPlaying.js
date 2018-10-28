@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Container } from 'reactstrap';
 
 import { Track } from './Track';
 import Spinner from './Spinner';
 
-export default class NowPlaying extends Component {
+export default class NowPlaying extends React.Component {
     constructor(props) {
         super(props);
 

@@ -1,10 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faClock } from '@fortawesome/free-solid-svg-icons/faClock'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+import { faListOl } from '@fortawesome/free-solid-svg-icons/faListOl'
 
 import disco from '../lib/disco';
 
-export default class Album extends Component {
+export default class Album extends React.Component {
 
     constructor(props) {
         super(props);
@@ -30,14 +34,14 @@ export default class Album extends Component {
             if (this.state.added) {
                 buttons.push({
                     tooltip: "Added!",
-                    icon: "check",
+                    icon: faCheck,
                     color: "green"
                 })
             } else {
                 buttons.push({
                     onClick: this.addToCurrentPlaylist,
                     tooltip: "Add album to playlist",
-                    icon: "plus"
+                    icon: faPlus
                 })
             }
         }
@@ -48,11 +52,11 @@ export default class Album extends Component {
                     {this.props.artist} - {this.props.title}
                 </Col>
                 <Col xs="auto" md="2">
-                    <FontAwesomeIcon className="mr-1" key={"duration" + this.props.album_id} icon={["fas", "clock"]} data-toggle="tooltip" data-placement="top" title="Album duration"/>
+                    <FontAwesomeIcon className="mr-1" key={"duration" + this.props.album_id} icon={faClock} data-toggle="tooltip" data-placement="top" title="Album duration"/>
                     {this.props.duration}
                 </Col>
                 <Col xs="auto" md="2">
-                    <FontAwesomeIcon className="mr-1" key={"count" + this.props.album_id} icon={["fas", "list-ol"]} data-toggle="tooltip" data-placement="top" title="Number of tracks"/>
+                    <FontAwesomeIcon className="mr-1" key={"count" + this.props.album_id} icon={faListOl} data-toggle="tooltip" data-placement="top" title="Number of tracks"/>
                     {this.props.track_count}
                 </Col>
                 <Col xs="auto" md="2" className="ml-auto">
@@ -67,7 +71,7 @@ export default class Album extends Component {
                                 onClick={option.onClick}
                                 data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
                                 >
-                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} color={option.color} onClick={option.onClick}/>
+                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} color={option.color} onClick={option.onClick}/>
                             </Button>
                         </Col>
                         )}

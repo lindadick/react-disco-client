@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import disco from '../lib/disco';
 import { Playlist } from './Playlist'
 
-export default class Playlists extends Component {
+export default class Playlists extends React.Component {
     constructor(props) {
         super(props);
 

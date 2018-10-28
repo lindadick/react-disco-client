@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import disco from '../lib/disco';
 import { TrackList } from './TrackList';
 import Spinner from './Spinner';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
-export default class TrackSearch extends Component {
+export default class TrackSearch extends React.Component {
     constructor(props) {
         super(props);
         
@@ -80,11 +82,11 @@ export default class TrackSearch extends Component {
                         <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
                         { this.state.allAdded ? (
                             <Button disabled>
-                                <FontAwesomeIcon icon={["fas", "check"]} color="green" /> All tracks added to current playlist
+                                <FontAwesomeIcon icon={faCheck} color="green" /> All tracks added to current playlist
                             </Button>
                         ) : (
                             <Button onClick={this.addAllToCurrentPlaylist.bind(this)}>
-                                <FontAwesomeIcon icon={["fas", "plus"]} /> Add all tracks to current playlist
+                                <FontAwesomeIcon icon={faPlus} /> Add all tracks to current playlist
                             </Button>
                         )}
                     </div>

@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
     externals: {
@@ -9,6 +10,9 @@ module.exports = {
         filename: "bundle.js",
         publicPath: "assets"
     },
+    plugins: [
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /uk|us/)
+    ],
     module: {
         rules: [
             {
@@ -25,7 +29,17 @@ module.exports = {
                         }]
                     ],
                     "plugins": [
-                        "@babel/plugin-proposal-class-properties"
+                        "@babel/plugin-proposal-class-properties",
+                        ["transform-imports", {
+                            "reactstrap": {
+                                "transform": "reactstrap/lib/${member}",
+                                "preventFullImport": true
+                            },
+                            "react-router-dom": {
+                                "transform": "react-router-dom/${member}",
+                                "preventFullImport": true
+                            }
+                        }]
                     ]
                 }            
             },
@@ -35,12 +49,12 @@ module.exports = {
                 loader: "json-loader"
             },
             {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            },
-            {
-                test: /\.scss$/,
-                loader: 'style-loader!css-loader!sass-loader'
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                ], 
             },
             {
                 test: /\.jpe?g$|\.gif$|\.ico$|\.png$|\.svg$/,

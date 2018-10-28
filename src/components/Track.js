@@ -1,15 +1,26 @@
-import React, {Component} from 'react';
-import { Button } from 'reactstrap';
+import React from 'react';
 import moment from 'moment';
+import { Button } from 'reactstrap';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsAlt } from '@fortawesome/free-solid-svg-icons/faArrowsAlt'
+import { faBan } from '@fortawesome/free-solid-svg-icons/faBan'
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faClock } from '@fortawesome/free-solid-svg-icons/faClock'
+import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc'
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons/faHeart'
+import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons/faHourglassHalf'
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+import { faStepForward } from '@fortawesome/free-solid-svg-icons/faStepForward'
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons/faHeart'
 import { Col, Row } from 'reactstrap';
 
 import disco from '../lib/disco';
 
-const DragHandle = SortableHandle(() => <FontAwesomeIcon icon={["fas", "arrows-alt"]}/>);
+const DragHandle = SortableHandle(() => <FontAwesomeIcon icon={faArrowsAlt}/>);
 
-export class Track extends Component {
+export class Track extends React.Component {
 
     constructor(props) {
         super(props);
@@ -62,14 +73,14 @@ export class Track extends Component {
             if (this.state.added) {
                 buttons.push({
                     tooltip: "Added!",
-                    icon: "check",
+                    icon: faCheck,
                     color: "green"
                 })
             } else {
                 buttons.push({
                     onClick: this.addToCurrentPlaylist,
                     tooltip: "Add to playlist",
-                    icon: "plus"
+                    icon: faPlus
                 })
             }
         }
@@ -78,7 +89,7 @@ export class Track extends Component {
             buttons.push({
                 onClick: this.removeFromCurrentPlaylist,
                 tooltip: "Remove from playlist",
-                icon: "times"
+                icon: faTimes
             })
         }
 
@@ -86,14 +97,14 @@ export class Track extends Component {
             if (this.state.skipping) {
                 buttons.push({
                     tooltip: "Skipping track", //TODO make this a popover?
-                    icon: "hourglass-half",
+                    icon: faHourglassHalf,
                     spin: true
                 })
             } else {
                 buttons.push({
                     onClick: this.skipCurrentTrack,
                     tooltip: "Skip this track",
-                    icon: "step-forward"
+                    icon: faStepForward
                 })
             }
         }
@@ -104,7 +115,7 @@ export class Track extends Component {
             trackClassName = "text-muted";
             icons.push({
                 tooltip: "This track is currently offline",
-                icon: "ban"
+                icon: faBan
             });
         }
 
@@ -118,16 +129,15 @@ export class Track extends Component {
                 { this.props.options['showLastPlayed'] && <Col xs="auto">{moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}</Col> }
                 <Col className={trackClassName}>
                     {icons.map((option, i) =>
-                        <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
-                    )}
-                    {this.props.artist} - {this.props.title}<br/>
+                        <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
+                    )} {this.props.artist} - {this.props.title}<br/>
                     <span className="font-italic text-muted">
-                        <FontAwesomeIcon className="mr-1" key={"duration" + this.props.track_id} icon={["fas", "compact-disc"]} data-toggle="tooltip" data-placement="top" title="Album"/>
+                        <FontAwesomeIcon className="mr-1" key={"duration" + this.props.track_id} icon={faCompactDisc} data-toggle="tooltip" data-placement="top" title="Album"/>
                         {this.props.album_title}
                         { this.props.options['showDuration'] && (
                             <React.Fragment>
                                 <br/>
-                                <FontAwesomeIcon className="mr-1" key={"duration" + this.props.track_id} icon={["fas", "clock"]} data-toggle="tooltip" data-placement="top" title="Track duration"/>
+                                <FontAwesomeIcon className="mr-1" key={"duration" + this.props.track_id} icon={faClock} data-toggle="tooltip" data-placement="top" title="Track duration"/>
                                 {this.props.duration}
                             </React.Fragment>
                         ) }
@@ -145,7 +155,7 @@ export class Track extends Component {
                                 onClick={option.onClick}
                                 data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
                                 >
-                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={["fas", option.icon]} spin={option.spin} color={option.color}/>
+                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} spin={option.spin} color={option.color}/>
                             </Button>
                         </Col>
                         )}
@@ -160,9 +170,9 @@ export class Track extends Component {
                                 data-toggle="tooltip" data-placement="top" title="Toggle shortlist status" //TODO use Bootstrap's fancy tooltips
                             >
                                 {this.props.shortlist? (
-                                    <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["fas", "heart"]} color="red"/>
+                                    <FontAwesomeIcon key={"icon" + this.props.track_id} icon={faHeartSolid} color="red"/>
                                 ) : (
-                                    <FontAwesomeIcon key={"icon" + this.props.track_id} icon={["far", "heart"]}/>
+                                    <FontAwesomeIcon key={"icon" + this.props.track_id} icon={faHeartRegular}/>
                                 )}
                             </Button>
                         </Col>

@@ -1,9 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
 import { 
     Col,
     Collapse,
@@ -25,8 +21,6 @@ import History from './History';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
 import {APP_NAME, ICECAST_URL} from 'discoConfig';
-
-library.add(fas, far, faGithub);
 
 export default class App extends React.Component {
     constructor(props) {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { Col, Row } from 'reactstrap';
 
@@ -6,7 +6,7 @@ import disco from '../lib/disco';
 import { TrackList } from './TrackList';
 import Spinner from './Spinner';
 
-export default class History extends Component {
+export default class History extends React.Component {
     constructor(props) {
         super(props);
 

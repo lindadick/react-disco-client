@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import disco from '../lib/disco';
 import Album from './Album';
 import Spinner from './Spinner';
 
-export default class AlbumSearch extends Component {
+export default class AlbumSearch extends React.Component {
     constructor(props) {
         super(props);
 

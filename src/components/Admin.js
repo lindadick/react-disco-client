@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Admin extends Component {
+export default class Admin extends React.Component {
     constructor(props) {
         super(props);
     }
