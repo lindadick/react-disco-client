@@ -91,7 +91,7 @@ export default class App extends React.Component {
                 </Container>
                 <div className="text-center border p-2">
                     <Container>
-                        {APP_NAME} created by John Howard. Client and API by Linda and Michael Dick.
+                        <span className="small">{APP_NAME} created by John Howard. Client and API by Linda and Michael Dick.</span>
                     </Container>
                 </div>
             </React.Fragment>
