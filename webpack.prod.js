@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const common = require('./webpack.common.js');
 
