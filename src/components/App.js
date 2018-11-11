@@ -123,7 +123,6 @@ class AppMenu extends React.Component {
         }
     }
     render() {
-        console.log(this.state)
       return (
         <React.Fragment>
             <Navbar color="dark" dark expand="md">
