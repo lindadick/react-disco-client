@@ -2,9 +2,7 @@ import React from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
-import { faClock } from '@fortawesome/free-solid-svg-icons/faClock'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
-import { faListOl } from '@fortawesome/free-solid-svg-icons/faListOl'
 
 import disco from '../lib/disco';
 
@@ -48,16 +46,16 @@ export default class Album extends React.Component {
 
         return (
             <Row className={this.props.rowClassName}>
-                <Col xs="12" md="6">
+                <Col xs="auto">
                     {this.props.artist} - {this.props.title}
-                </Col>
-                <Col xs="auto" md="2">
-                    <FontAwesomeIcon className="mr-1" key={"duration" + this.props.album_id} icon={faClock} data-toggle="tooltip" data-placement="top" title="Album duration"/>
-                    {this.props.duration}
-                </Col>
-                <Col xs="auto" md="2">
-                    <FontAwesomeIcon className="mr-1" key={"count" + this.props.album_id} icon={faListOl} data-toggle="tooltip" data-placement="top" title="Number of tracks"/>
-                    {this.props.track_count}
+                    <ul className="list-inline font-italic text-muted">
+                        <li className="list-inline-item">
+                            {this.props.duration}
+                        </li>
+                        <li className="list-inline-item">
+                            {this.props.track_count} tracks
+                        </li>
+                    </ul>
                 </Col>
                 <Col xs="auto" md="2" className="ml-auto">
                     <Row noGutters>

@@ -20,7 +20,7 @@ export default class AlbumSearch extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.artist != '' || this.state.title != '') {
+        if (this.state.artist !== '' || this.state.title !== '') {
             this.setState({
                 searching: true
             });

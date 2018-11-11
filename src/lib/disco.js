@@ -28,6 +28,11 @@ var disco = {
         .then(res => res.data)
         .catch(err => console.log(err));
     },
+    getAlbumDetails: (album_id) => {
+        return axios.get(API_URL + `/albums/` + album_id)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    },
     addTrackToCurrentPlaylist: (album_id, track_id) => {
         return axios.post(API_URL + `/add/` + album_id + '/' + track_id)
         .catch(err => console.log(err));

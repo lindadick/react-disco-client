@@ -17,6 +17,7 @@ import disco from '../lib/disco';
 
 import TrackSearch from './TrackSearch';
 import AlbumSearch from './AlbumSearch';
+import AlbumDetails from './AlbumDetails';
 import History from './History';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
@@ -43,10 +44,10 @@ export default class App extends React.Component {
     }
 
     updateStateIfNeeded(newData) {
-        // Only update the state if it actually changed, to prevent unnecessary render calls
         if (newData == null) {
-            this.state.currentPlaylist = [];
+            return;
         } else if (!this.state.currentPlaylist || JSON.stringify(newData) !== JSON.stringify(this.state.currentPlaylist)) {
+            // Only update the state if it actually changed, to prevent unnecessary render calls
             this.setState({ 
                 currentPlaylist: newData,
                 currentTrack: newData[0],
@@ -84,6 +85,7 @@ export default class App extends React.Component {
                                 <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
                                 <Route path="/search" component={TrackSearch} />
                                 <Route path="/albums" component={AlbumSearch} />
+                                <Route exact path="/albumdetails/:id" component={AlbumDetails} />
                                 <Route path="/history" component={History} />
                             </Switch>
                         </Col>                   
