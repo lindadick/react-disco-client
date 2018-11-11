@@ -3,6 +3,7 @@ import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
+import moment from 'moment';
 
 import disco from '../lib/disco';
 
@@ -50,7 +51,7 @@ export default class Album extends React.Component {
                     {this.props.artist} - {this.props.title}
                     <ul className="list-inline font-italic text-muted">
                         <li className="list-inline-item">
-                            {this.props.duration}
+                            {moment(this.props.duration, "mm:ss").format("m:ss")}
                         </li>
                         <li className="list-inline-item">
                             {this.props.track_count} tracks

@@ -149,11 +149,13 @@ export class Track extends React.Component {
             });
         }
 
-        buttons.push({
-            onClick: this.showAlbumDetails,
-            tooltip: "View album",
-            icon: faCompactDisc
-        })
+        if (this.props.options['showAlbumLink']) {
+            buttons.push({
+                onClick: this.showAlbumDetails,
+                tooltip: "View album",
+                icon: faCompactDisc
+            })
+        }
 
         return (
             <Row className={this.props.rowClassName}>
@@ -163,12 +165,22 @@ export class Track extends React.Component {
                 </Col>
                 ) : null }
                 { this.props.options['showLastPlayed'] && <Col xs="auto">{moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}</Col> }
-                <Col className={trackClassName} xs="auto" md="8" lg="9">
+                <Col className={trackClassName} xs="auto">
                     {icons.map((option, i) =>
                         <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
                     )} {this.props.artist} - {this.props.title}<br/>
+                    <ul className="list-inline font-italic text-muted">
+                        <li className="list-inline-item">
+                            {this.props.album_title}
+                        </li>
+                        { this.props.options['showDuration'] && (
+                            <li className="list-inline-item">
+                                {moment(this.props.duration, "mm:ss").format("m:ss")}
+                            </li>
+                        ) }
+                    </ul>
                 </Col>
-                <Col className="d-none d-md-block ml-auto" md="4" lg="3">
+                <Col className="d-none d-md-block ml-auto" md="auto">
                     {/* Buttons for medium-sized screens */}
                     <Row noGutters>
                         {buttons.map((option, i) =>

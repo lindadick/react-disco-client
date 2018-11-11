@@ -79,7 +79,7 @@ export default class TrackSearch extends React.Component {
                 { this.state.searchResults && this.state.searchResults.length > 0 && (
                     <div>
                         <h2>Search Results</h2>
-                        <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
+                        <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true, showAlbumLink: true}} />
                         { this.state.allAdded ? (
                             <Button disabled>
                                 <FontAwesomeIcon icon={faCheck} color="green" /> All tracks added to current playlist

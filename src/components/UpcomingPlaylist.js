@@ -1,6 +1,6 @@
 import React from 'react';
 import disco from '../lib/disco';
-import { TrackList } from './TrackList';
+import { SortableTrackList, TrackList } from './TrackList';
 import Spinner from './Spinner';
 
 export default class UpcomingPlaylist extends React.Component {
@@ -14,7 +14,7 @@ export default class UpcomingPlaylist extends React.Component {
     }
 
     onUpcomingPlaylistSortEnd = ({oldIndex, newIndex}) => {
-        if (oldIndex != newIndex) {
+        if (oldIndex !== newIndex) {
             let album_id = this.props.upcomingPlaylist[oldIndex].album_id;
             let track_id = this.props.upcomingPlaylist[oldIndex].track_id;
             this.setState({
@@ -34,11 +34,12 @@ export default class UpcomingPlaylist extends React.Component {
             return (
                 <div>
                     <h1>Coming Up</h1>
-                    { this.state.moving ? (
-                        <Spinner />
+                    { this.state.moving && ( <Spinner /> ) }
+                    { this.props.upcomingPlaylist.length > 1 ? (
+                        <SortableTrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
+                        useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: true, showAlbumLink: true}} />
                     ) : (
-                        <TrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                        useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: true}} />
+                        <TrackList tracks={this.props.upcomingPlaylist} options={{sortable: false, removeFromPlaylist: true, showDuration: true, showAlbumLink: true}} />
                     )}
                 </div>
             );

@@ -103,44 +103,52 @@ export default class App extends React.Component {
 
 class AppMenu extends React.Component {
     constructor(props) {
-      super(props);
-  
-      this.toggle = this.toggle.bind(this);
+      super(props)
       this.state = {
-        isOpen: false
-      };
+        collapsed: true
+      }
+      this.toggle = this.toggle.bind(this)
+      this.collapse = this.collapse.bind(this)
     }
     toggle() {
       this.setState({
-        isOpen: !this.state.isOpen
-      });
+        collapsed: !this.state.collapsed
+      })
+    }
+    collapse() {
+        if (!this.state.collapsed) {
+            this.setState({
+                collapsed: true
+            })
+        }
     }
     render() {
+        console.log(this.state)
       return (
         <React.Fragment>
             <Navbar color="dark" dark expand="md">
                 <Container>
                     <NavbarBrand href="#/">{APP_NAME}</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.state.isOpen} onClick={this.toggle} navbar>
-                    <Nav className="mr-auto" navbar>
-                        <NavItem>
-                            <NavLink href='#/'>Current Playlist</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink  href='#/search'>Tracks</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink  href='#/albums'>Albums</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href='#/history'>History</NavLink>
-                        </NavItem>
-                    </Nav>
+                    <Collapse isOpen={!this.state.collapsed} navbar>
+                        <Nav className="mr-auto" navbar>
+                            <NavItem>
+                                <NavLink href='#/' onClick={this.collapse}>Current Playlist</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink  href='#/search' onClick={this.collapse}>Tracks</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink  href='#/albums' onClick={this.collapse}>Albums</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href='#/history' onClick={this.collapse}>History</NavLink>
+                            </NavItem>
+                        </Nav>
                         { ICECAST_URL &&
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink  href={ICECAST_URL} target='_blank'>Icecast</NavLink>
+                                <NavLink  href={ICECAST_URL} target='_blank' onClick={this.collapse}>Icecast</NavLink>
                             </NavItem>
                         </Nav>
                         }

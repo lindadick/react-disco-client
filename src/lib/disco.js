@@ -61,7 +61,7 @@ var disco = {
     moveTrackWithinCurrentPlaylist: (album_id, track_id, oldIndex, newIndex) => {
         let difference = oldIndex - newIndex;
         let url = '';
-        if (difference == 0) {
+        if (difference === 0) {
             //TODO make this a Promise...
             return;
         } else if (difference > 0) {

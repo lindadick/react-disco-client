@@ -3,6 +3,7 @@ import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import moment from 'moment';
 
 import disco from '../lib/disco';
 import { TrackList } from './TrackList';
@@ -12,11 +13,11 @@ export default class AlbumDetails extends React.Component {
     componentDidMount() {
         let album_id = this.props.match.params.id
         disco.getAlbumDetails(album_id)
-        .then(data => this.setState(data));
+        .then(data => this.setState({album: data}));
     }
 
     addAllToCurrentPlaylist = () => {
-        this.state.tracks.map((track, i) => {
+        this.state.album.tracks.map((track, i) => {
             if (track.online) {
                 disco.addTrackToCurrentPlaylist(track.album_id, track.track_id);
             }
@@ -36,14 +37,15 @@ export default class AlbumDetails extends React.Component {
                     ) : (
                         <React.Fragment>
                             <h1>
-                                <span className="text-muted">Album Artist:</span> {this.state.artist}<br/>
-                                <span className="text-muted">Album Title:</span> {this.state.title}<br/>
-                                <span className="text-muted">Duration:</span> {this.state.duration}
+                                <span className="text-muted">Album Artist:</span> {this.state.album.artist}<br/>
+                                <span className="text-muted">Album Title:</span> {this.state.album.title}<br/>
+                                <span className="text-muted">Duration:</span> {moment(this.state.album.duration, "mm:ss").format("m:ss")}
+
                             </h1>
-                            { this.state.tracks.length > 0 ? (                   
+                            { this.state.album.tracks.length > 0 ? (                   
                                 <React.Fragment>
-                                    <TrackList tracks={this.state.tracks} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true}} />
-                                    { this.state.allAdded ? (
+                                    <TrackList tracks={this.state.album.tracks} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true, showAlbumLink: false}} />
+                                    { this.state.album.allAdded ? (
                                         <Button disabled>
                                             <FontAwesomeIcon icon={faCheck} color="green" /> All tracks added to current playlist
                                         </Button>

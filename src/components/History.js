@@ -28,7 +28,7 @@ export default class History extends React.Component {
                 <Col>
                     <h1>History<br/><span className="text-muted small">{moment().format('LL')}</span></h1>
                     { this.state.history.length > 0 ? (                   
-                        <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true}} />
+                        <TrackList tracks={this.state.history} options={{sortable: false, addToPlaylist: true, showLastPlayed: true, showDuration: true, showAlbumLink: true}} />
                     ): (
                         <Spinner />
                     ) }
