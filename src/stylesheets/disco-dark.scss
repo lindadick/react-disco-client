@@ -1,0 +1,27 @@
+$primary: pink;
+$body-bg: black;
+$body-color: darken(white, 20%);
+$border-color: #343a40;
+$secondary: #343a40;
+$text-muted: darken($body-color, 20%);
+$input-bg: darken($secondary, 10%);
+$input-color: $body-color;
+$input-border-color: $input-bg;
+
+@import "_disco.scss";
+
+.disco-highlight {
+    background-color: $gray-900;
+}
+
+.navbar-dark {
+    background-color: $body-bg !important;
+    .navbar-nav {
+        .nav-link {
+            color: $primary;
+        }
+        .nav-link.active {
+            color: $body-color;
+        }
+    }
+}

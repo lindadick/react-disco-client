@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, NavLink as RRNavLink } from 'react-router-dom';
 import { 
     Col,
     Collapse,
@@ -21,7 +21,15 @@ import AlbumDetails from './AlbumDetails';
 import History from './History';
 import NowPlaying from './NowPlaying';
 import UpcomingPlaylist from './UpcomingPlaylist';
-import {APP_NAME, ICECAST_URL} from 'discoConfig';
+import {APP_NAME, ICECAST_URL, THEME} from 'discoConfig';
+
+switch(THEME) {
+    case "dark":
+        require("../stylesheets/disco-dark.scss");
+        break;
+    default:
+        require("../stylesheets/disco-light.scss");
+}
 
 export default class App extends React.Component {
     constructor(props) {
@@ -91,7 +99,7 @@ export default class App extends React.Component {
                         </Col>                   
                     </Row>
                 </Container>
-                <div className="text-center border p-2">
+                <div className="border-top border-bottom text-center disco-highlight p-2">
                     <Container>
                         <span className="small">{APP_NAME} created by John Howard. Client and API by Linda and Michael Dick.</span>
                     </Container>
@@ -123,6 +131,7 @@ class AppMenu extends React.Component {
         }
     }
     render() {
+      const activeClassName = "active";        
       return (
         <React.Fragment>
             <Navbar color="dark" dark expand="md">
@@ -132,16 +141,16 @@ class AppMenu extends React.Component {
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <NavLink href='#/' onClick={this.collapse}>Current Playlist</NavLink>
+                                <NavLink exact to='/' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Current Playlist</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink  href='#/search' onClick={this.collapse}>Tracks</NavLink>
+                                <NavLink to='/search' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Tracks</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink  href='#/albums' onClick={this.collapse}>Albums</NavLink>
+                                <NavLink to='/albums' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Albums</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href='#/history' onClick={this.collapse}>History</NavLink>
+                                <NavLink to='/history' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>History</NavLink>
                             </NavItem>
                         </Nav>
                         { ICECAST_URL &&

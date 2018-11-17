@@ -1,5 +1,6 @@
 var discoConfig = {
     APP_NAME: 'Robinet Disco',                          // Application name, displayed on webpage
     API_URL: 'http://192.168.1.10:5000',                // Hostname and port for the API endpoint
-    ICECAST_URL: 'http://192.168.1.10:8000/disco.m3u'   // URL for the Icecast mount; omit to remove from menu
+    ICECAST_URL: 'http://192.168.1.10:8000/disco.m3u',  // URL for the Icecast mount; omit to remove from menu
+    THEME: 'dark'                                       // UI theme; omit for default
 }
