@@ -26,6 +26,7 @@ import {APP_NAME, ICECAST_URL, THEME} from 'discoConfig';
 switch(THEME) {
     case "dark":
         require("../stylesheets/disco-dark.scss");
+        document.querySelector("meta[name=theme-color]").setAttribute("content", "#000000");
         break;
     default:
         require("../stylesheets/disco-light.scss");
