@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import { Track } from './Track';
+import Track from './Track';
 import Spinner from './Spinner';
 
 export default class NowPlaying extends React.Component {

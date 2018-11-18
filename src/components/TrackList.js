@@ -1,23 +1,26 @@
-import { SortableTrack, Track } from './Track'
+import Track from './Track'
 import React from 'react';
-import { SortableContainer } from 'react-sortable-hoc';
+import { Container, Draggable } from 'react-smooth-dnd';
 
-export class TrackList extends React.Component {
+export default class TrackList extends React.Component {
     render() {
-        let rowClassName="border-bottom py-1";
-        return (
-            this.props.tracks.map((track, i) =>
-                <Track key={track.album_id + `-` + track.track_id} options={this.props.options} index={i} {...track} rowClassName={rowClassName}/>	
+        const rowClassName="border-bottom py-1";
+        if (this.props.options.sortable) {
+            return (
+                <Container lockAxis="y" onDrop={this.props.onSortEnd}>
+                    {this.props.tracks.map((track, i) =>
+                        <Draggable key={i}>
+                            <Track key={track.album_id + `-` + track.track_id} options={this.props.options} index={i} {...track} rowClassName={rowClassName}/>	
+                        </Draggable>
+                    )}
+                </Container>
+            );    
+        } else {
+            return (
+                this.props.tracks.map((track, i) =>
+                    <Track key={track.album_id + `-` + track.track_id} options={this.props.options} index={i} {...track} rowClassName={rowClassName}/>	
+                )
             )
-        )
+        }
     }
 }
-
-export const SortableTrackList = SortableContainer(({tracks, options}) => {
-    let rowClassName="border-bottom py-1";
-    return (
-        tracks.map((track, i) =>
-            <SortableTrack key={track.album_id + `-` + track.track_id} options={options} index={i} {...track} rowClassName={rowClassName}/>	
-        )
-    );
-});

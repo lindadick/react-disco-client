@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import moment from 'moment';
 
 import disco from '../lib/disco';
-import { TrackList } from './TrackList';
+import TrackList from './TrackList';
 import Spinner from './Spinner';
 
 export default class AlbumDetails extends React.Component {

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment';
-import { SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons/faSort'
 import { faBan } from '@fortawesome/free-solid-svg-icons/faBan'
@@ -18,9 +17,7 @@ import { Button, Col, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Row 
 
 import disco from '../lib/disco';
 
-const DragHandle = SortableHandle(() => <FontAwesomeIcon icon={faSort}/>);
-
-export class Track extends React.Component {
+export default class Track extends React.Component {
 
     constructor(props) {
         super(props);
@@ -160,9 +157,9 @@ export class Track extends React.Component {
         return (
             <Row className={this.props.rowClassName}>
                 { this.props.options['sortable'] ? (
-                <Col xs="auto">
-                    <DragHandle />
-                </Col>
+                    <Col xs="auto">
+                        <FontAwesomeIcon icon={faSort}/>
+                    </Col>
                 ) : null }
                 { this.props.options['showLastPlayed'] && <Col xs="auto">{moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}</Col> }
                 <Col className={trackClassName}>
@@ -224,5 +221,3 @@ export class Track extends React.Component {
     }
 
 }
-
-export const SortableTrack = SortableElement(Track);

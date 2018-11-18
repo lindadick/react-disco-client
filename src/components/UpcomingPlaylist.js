@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import disco from '../lib/disco';
-import { SortableTrackList, TrackList } from './TrackList';
+import TrackList from './TrackList';
 import Spinner from './Spinner';
 
 export default class UpcomingPlaylist extends React.Component {
@@ -14,7 +14,9 @@ export default class UpcomingPlaylist extends React.Component {
         };
     }
 
-    onUpcomingPlaylistSortEnd = ({oldIndex, newIndex}) => {
+    onUpcomingPlaylistSortEnd = (event) => {
+        let oldIndex = event.removedIndex;
+        let newIndex = event.addedIndex;
         if (oldIndex !== newIndex) {
             let album_id = this.props.upcomingPlaylist[oldIndex].album_id;
             let track_id = this.props.upcomingPlaylist[oldIndex].track_id;
@@ -23,36 +25,38 @@ export default class UpcomingPlaylist extends React.Component {
             });
             disco.moveTrackWithinCurrentPlaylist(album_id, track_id, oldIndex, newIndex)
             .then(data => {
-                this.setState({ 
-                    moving: false
-                });
+                this.props.refreshCallback();
             });
         }
     };
 
     render() {
-        if (this.props.upcomingPlaylist) {
+        if (this.state.moving) {
+            return (
+                <div className="text-center">
+                    <Spinner/>
+                    Reordering playlist...
+                </div>
+            );
+        } else if (this.props.upcomingPlaylist && this.props.upcomingPlaylist.length > 0) {
+            const isSortable = this.props.upcomingPlaylist.length > 1;
             return (
                 <div>
                     <h1>Coming Up</h1>
-                    { this.state.moving && ( <Spinner /> ) }
-                    { this.props.upcomingPlaylist.length > 1 && (
-                        <SortableTrackList tracks={this.props.upcomingPlaylist} onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                        useDragHandle={true} pressDelay={200} options={{sortable: true, removeFromPlaylist: true, showDuration: true, showAlbumLink: true}} />
-                    )}
-                    { this.props.upcomingPlaylist.length === 1 && (
-                        <TrackList tracks={this.props.upcomingPlaylist} options={{sortable: false, removeFromPlaylist: true, showDuration: true, showAlbumLink: true}} />
-                    )}
-                    { this.props.upcomingPlaylist.length === 0 && (
-                        <React.Fragment>
-                            <div className="text-muted font-italic">The playlist is empty.</div>
-                            <Link to="/search" className="btn btn-secondary">Search for tracks</Link>
-                        </React.Fragment>
-                    )}
+                    <TrackList 
+                        tracks={this.props.upcomingPlaylist} 
+                        onSortEnd={this.onUpcomingPlaylistSortEnd} 
+                        options={{sortable: isSortable, removeFromPlaylist: true, showDuration: true, showAlbumLink: true}} 
+                    />
                 </div>
             );
         } else {
-            return null;
+            return (
+                <React.Fragment>
+                    <div className="text-muted font-italic">The playlist is empty.</div>
+                    <Link to="/search" className="btn btn-secondary">Search for tracks</Link>
+                </React.Fragment>
+            );
         }
     }
 

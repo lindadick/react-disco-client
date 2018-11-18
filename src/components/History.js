@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Col, Row } from 'reactstrap';
 
 import disco from '../lib/disco';
-import { TrackList } from './TrackList';
+import TrackList from './TrackList';
 import Spinner from './Spinner';
 
 export default class History extends React.Component {

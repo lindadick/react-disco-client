@@ -91,7 +91,7 @@ export default class App extends React.Component {
                     <Row>
                         <Col className="mb-3">
                             <Switch>
-                                <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} />)}/> />
+                                <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} refreshCallback={this.props.refreshData}/>)}/> />
                                 <Route path="/search" component={TrackSearch} />
                                 <Route path="/albums" component={AlbumSearch} />
                                 <Route exact path="/albumdetails/:id" component={AlbumDetails} />

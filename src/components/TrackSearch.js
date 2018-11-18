@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import disco from '../lib/disco';
-import { TrackList } from './TrackList';
+import TrackList from './TrackList';
 import Spinner from './Spinner';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
