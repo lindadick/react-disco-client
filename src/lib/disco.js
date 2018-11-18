@@ -37,8 +37,8 @@ var disco = {
         return axios.post(API_URL + `/add/` + album_id + '/' + track_id)
         .catch(err => console.log(err));
     },
-    addAlbumToCurrentPlaylist: (id, track_count) => {
-        return axios.post(API_URL + `/add/` + id)
+    addAlbumToCurrentPlaylist: (album_id) => {
+        return axios.post(API_URL + `/add/` + album_id)
         .then(res => res.data)
         .catch(err => console.log(err));
     },    

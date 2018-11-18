@@ -21,7 +21,7 @@ export default class Album extends React.Component {
 
     addToCurrentPlaylist() {
         this.setState({
-            added: disco.addAlbumToCurrentPlaylist(this.props.id, this.props.track_count)
+            added: disco.addAlbumToCurrentPlaylist(this.props.album_id)
         });
     }
 
