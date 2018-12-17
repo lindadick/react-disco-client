@@ -24,7 +24,7 @@ export default class TrackSearch extends React.Component {
     }
 
     handleSubmit(event) {
-        if (this.state.artist != '' || this.state.title != '') {
+        if (this.state.artist !== '' || this.state.title !== '') {
             this.setState({
                 searching: true,
                 allAdded: false
@@ -71,13 +71,13 @@ export default class TrackSearch extends React.Component {
                     <Button type="submit">Search</Button>	
                 </Form>
                 { this.state.searching && <Spinner /> }
-                { this.state.searchResults && this.state.searchResults.length == 0 && (
-                    <div className="text-danger text-lg">
+                { this.state.searchResults && this.state.searchResults.length === 0 && (
+                    <div className="text-danger text-lg mt-3">
                         <p>No results found.</p>
                     </div>
                 )}
                 { this.state.searchResults && this.state.searchResults.length > 0 && (
-                    <div>
+                    <div className="mt-3">
                         <h2>Search Results</h2>
                         <TrackList tracks={this.state.searchResults} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true, showAlbumLink: true}} />
                         { this.state.allAdded ? (

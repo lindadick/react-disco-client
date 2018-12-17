@@ -137,7 +137,11 @@ export default class Track extends React.Component {
                 tooltip: tooltip,
                 icon: icon,
                 color: color
-            })
+            });
+            icons.push({
+                icon: icon,
+                color: color
+            });
         } else {
             trackClassName = "text-muted";
             icons.push({
@@ -154,6 +158,16 @@ export default class Track extends React.Component {
             })
         }
 
+        let duration = "";
+        if (this.props.options['showDuration']) {
+            duration = moment(this.props.duration, "mm:ss").format("m:ss");
+            if (duration === "Invalid date") {
+                // Moment doesn't like durations with more than 59 minutes.
+                // Fall back to raw value.
+                duration = this.props.duration;
+            }    
+        }
+
         return (
             <Row className={this.props.rowClassName}>
                 { this.props.options['sortable'] ? (
@@ -163,16 +177,19 @@ export default class Track extends React.Component {
                 ) : null }
                 { this.props.options['showLastPlayed'] && <Col xs="auto">{moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}</Col> }
                 <Col className={trackClassName}>
-                    {icons.map((option, i) =>
-                        <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
-                    )} {this.props.artist} - {this.props.title}<br/>
+                    {this.props.artist} - {this.props.title}<br/>
                     <ul className="list-inline font-italic text-muted">
+                        {icons.map((option, i) =>
+                            <li className="list-inline-item">
+                            <FontAwesomeIcon key={"icon" + i + this.props.track_id} color={option.color} icon={option.icon} data-toggle="tooltip" data-placement="top" title={option.tooltip}/>
+                            </li>
+                        )} 
                         <li className="list-inline-item">
                             {this.props.album_title}
                         </li>
                         { this.props.options['showDuration'] && (
                             <li className="list-inline-item">
-                                {moment(this.props.duration, "mm:ss").format("m:ss")}
+                                {duration}
                             </li>
                         ) }
                     </ul>

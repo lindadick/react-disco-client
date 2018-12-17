@@ -142,7 +142,7 @@ class AppMenu extends React.Component {
                     <Collapse isOpen={!this.state.collapsed} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <NavLink exact to='/' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Current Playlist</NavLink>
+                                <NavLink exact to='/' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Upcoming</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to='/search' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Tracks</NavLink>
