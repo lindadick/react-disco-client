@@ -70,7 +70,7 @@ export default class Album extends React.Component {
                                 onClick={option.onClick}
                                 data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
                                 >
-                                <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} color={option.color} onClick={option.onClick}/>
+                                <FontAwesomeIcon key={"icon" + i + this.props.album_id} icon={option.icon} color={option.color} onClick={option.onClick}/>
                             </Button>
                         </Col>
                         )}

@@ -1,7 +1,8 @@
 import React from 'react';
+import { Col, Row } from 'reactstrap';
 
 import disco from '../lib/disco';
-import { Playlist } from './Playlist'
+import Playlist from './Playlist'
 
 export default class Playlists extends React.Component {
     constructor(props) {
@@ -16,16 +17,11 @@ export default class Playlists extends React.Component {
         console.log(error);
     }
 
-    refreshData() {
+    componentDidMount() {
         disco.getAllPlaylists()
         .then(data => this.setState({ 
             allPlaylists: data
         }));
-    }
-
-    componentDidMount() {
-        this.interval = setInterval(() => this.refreshData(), 50000);    
-        this.refreshData();
     }
 
     componentWillUnmount() {
@@ -33,16 +29,17 @@ export default class Playlists extends React.Component {
     }
 
     render() {
+        const rowClassName="border-bottom py-1";
         return (
-            <div>
-                <h1>Playlists</h1>
-                <p>TBD</p>
-                {/* 
-                {this.state.allPlaylists.map((playlist, i) =>
-                    <Playlist key={`item-${i}`} index={i} {...playlist}/>	
-                )}
-                */}
-            </div>
+            <Row>
+                <Col>
+                    <h1>Playlists</h1>
+
+                    {this.state.allPlaylists.map((playlist, i) =>
+                        <Playlist key={`item-${i}`} index={i} {...playlist} rowClassName={rowClassName} />	
+                    )}
+                </Col>
+            </Row>
         );
     }
 }

@@ -20,6 +20,7 @@ import AlbumSearch from './AlbumSearch';
 import AlbumDetails from './AlbumDetails';
 import History from './History';
 import NowPlaying from './NowPlaying';
+import Playlists from './Playlists';
 import UpcomingPlaylist from './UpcomingPlaylist';
 import {APP_NAME, ICECAST_URL, THEME} from 'discoConfig';
 
@@ -94,6 +95,7 @@ export default class App extends React.Component {
                                 <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} refreshCallback={this.props.refreshData}/>)}/> />
                                 <Route path="/search" component={TrackSearch} />
                                 <Route path="/albums" component={AlbumSearch} />
+                                <Route path="/playlists" component={Playlists} />
                                 <Route exact path="/albumdetails/:id" component={AlbumDetails} />
                                 <Route path="/history" component={History} />
                             </Switch>
@@ -149,6 +151,9 @@ class AppMenu extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink to='/albums' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Albums</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink to='/playlists' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Playlists</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to='/history' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>History</NavLink>

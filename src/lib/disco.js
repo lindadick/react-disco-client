@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {API_URL} from 'discoConfig';
+import {API_URL, PHP_URL} from 'discoConfig';
 
 var disco = {
     getCurrentPlaylist: () => {
@@ -9,7 +9,7 @@ var disco = {
         .catch(err => console.log(err));
     },
     getAllPlaylists: () => {
-        return axios.get(API_URL + `/playlists`)
+        return axios.get(PHP_URL + `/get_playlists.php`)
         .then(res => res.data)
         .catch(err => console.log(err));
     },
@@ -39,6 +39,11 @@ var disco = {
     },
     addAlbumToCurrentPlaylist: (album_id) => {
         return axios.post(API_URL + `/add/` + album_id)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    },    
+    addPlaylistToCurrentPlaylist: (playlist_name) => {
+        return axios.get(PHP_URL + `/add_playlist.php?playlist=` + playlist_name)
         .then(res => res.data)
         .catch(err => console.log(err));
     },    
