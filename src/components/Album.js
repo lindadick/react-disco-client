@@ -45,13 +45,20 @@ export default class Album extends React.Component {
             }
         }
 
+        let duration = moment(this.props.duration, "mm:ss").format("m:ss");
+        if (duration === "Invalid date") {
+            // Moment doesn't like durations with more than 59 minutes.
+            // Fall back to raw value.
+            duration = this.props.duration;
+        }
+
         return (
             <Row className={this.props.rowClassName}>
                 <Col xs="auto">
                     {this.props.artist} - {this.props.title}
                     <ul className="list-inline font-italic text-muted">
                         <li className="list-inline-item">
-                            {moment(this.props.duration, "mm:ss").format("m:ss")}
+                            {duration}
                         </li>
                         <li className="list-inline-item">
                             {this.props.track_count} tracks

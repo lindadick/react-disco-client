@@ -53,7 +53,7 @@ export default class UpcomingPlaylist extends React.Component {
         } else {
             return (
                 <React.Fragment>
-                    <div className="text-muted font-italic">The playlist is empty.</div>
+                    <div className="text-muted font-italic">There are no upcoming tracks.</div>
                     <Link to="/search" className="btn btn-secondary">Search for tracks</Link>
                 </React.Fragment>
             );
