@@ -3,6 +3,7 @@ import { Col, Row } from 'reactstrap';
 
 import disco from '../lib/disco';
 import Playlist from './Playlist'
+import Spinner from './Spinner';
 
 export default class Playlists extends React.Component {
     constructor(props) {
@@ -34,10 +35,15 @@ export default class Playlists extends React.Component {
             <Row>
                 <Col>
                     <h1>Playlists</h1>
-
-                    {this.state.allPlaylists.map((playlist, i) =>
-                        <Playlist key={`item-${i}`} index={i} {...playlist} rowClassName={rowClassName} />	
-                    )}
+                    { this.state.allPlaylists.length > 0 ? (      
+                        <React.Fragment>
+                            {this.state.allPlaylists.map((playlist, i) =>
+                                <Playlist key={`item-${i}`} index={i} {...playlist} rowClassName={rowClassName} />	
+                            )}
+                        </React.Fragment>             
+                    ): (
+                        <Spinner />
+                    ) }
                 </Col>
             </Row>
         );
