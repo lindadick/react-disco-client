@@ -25,10 +25,6 @@ export default class Playlists extends React.Component {
         }));
     }
 
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-
     render() {
         const rowClassName="border-bottom py-1";
         return (

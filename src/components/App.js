@@ -20,6 +20,7 @@ import AlbumSearch from './AlbumSearch';
 import AlbumDetails from './AlbumDetails';
 import History from './History';
 import NowPlaying from './NowPlaying';
+import Modes from './Modes';
 import Playlists from './Playlists';
 import UpcomingPlaylist from './UpcomingPlaylist';
 import {APP_NAME, ICECAST_URL, THEME} from 'discoConfig';
@@ -96,6 +97,7 @@ export default class App extends React.Component {
                                 <Route path="/search" component={TrackSearch} />
                                 <Route path="/albums" component={AlbumSearch} />
                                 <Route path="/playlists" component={Playlists} />
+                                <Route path="/modes" component={Modes} />
                                 <Route exact path="/albumdetails/:id" component={AlbumDetails} />
                                 <Route path="/history" component={History} />
                             </Switch>
@@ -154,6 +156,9 @@ class AppMenu extends React.Component {
                             </NavItem>
                             <NavItem>
                                 <NavLink to='/playlists' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Playlists</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink to='/modes' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>Modes</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink to='/history' onClick={this.collapse} tag={RRNavLink} activeClassName={activeClassName}>History</NavLink>

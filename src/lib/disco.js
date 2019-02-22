@@ -8,6 +8,11 @@ var disco = {
         .then(res => res.data)
         .catch(err => console.log(err));
     },
+    getCurrentMode: () => {
+        return axios.get(PHP_URL + `/get_current_mode.php`)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    },
     getAllPlaylists: () => {
         return axios.get(PHP_URL + `/get_playlists.php`)
         .then(res => res.data)
@@ -44,6 +49,11 @@ var disco = {
     },    
     addPlaylistToCurrentPlaylist: (playlist_name) => {
         return axios.get(PHP_URL + `/add_playlist.php?playlist=` + playlist_name)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    },    
+    setCurrentMode: (mode, playlist_name="") => {
+        return axios.get(PHP_URL + `/set_mode.php?mode=` + mode + `&playlist=` + playlist_name)
         .then(res => res.data)
         .catch(err => console.log(err));
     },    
