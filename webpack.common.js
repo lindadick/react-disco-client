@@ -5,9 +5,13 @@ module.exports = {
     externals: {
         discoConfig: 'discoConfig'
     },
+    entry: { 
+        app: "./src/index.js",
+        widget: "./src/widget.js"
+    },
     output: {
         path: path.resolve(__dirname + "/public/assets"),
-        filename: "bundle.js",
+        filename: "[name].bundle.js",
         publicPath: "assets"
     },
     plugins: [

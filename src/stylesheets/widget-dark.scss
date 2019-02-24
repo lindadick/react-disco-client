@@ -1,0 +1,16 @@
+$primary: #b58e31;
+$body-bg: #292929;
+$body-color: #ffffff;
+$border-color: #292929;
+$secondary: #444444;
+$text-muted: darken($body-color, 20%);
+$input-bg: darken($secondary, 10%);
+$input-color: $body-color;
+$input-border-color: $input-bg;
+
+@import "_disco.scss";
+
+.disco-highlight {
+    background-color: #292929;
+}
+

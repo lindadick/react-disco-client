@@ -129,7 +129,11 @@ export default class Track extends React.Component {
             let tooltip = "Add to shortlist"
             if (this.props.shortlist) {
                 icon = faHeartSolid
-                color = "red"
+                if (this.props.widgetView) {
+                    color = "#b58e31"
+                } else {
+                    color = "red"
+                }
                 tooltip = "Remove from shortlist"
             }
             buttons.push({
@@ -168,6 +172,12 @@ export default class Track extends React.Component {
             }    
         }
 
+        let mediumButtonClassNames = "d-none d-md-block ml-auto";
+        let smallButtonClassNames = "d-block d-md-none ml-auto";
+        if (this.props.widgetView) {
+            mediumButtonClassNames = "d-block mx-auto mt-2";
+        }
+
         return (
             <Row className={this.props.rowClassName}>
                 { this.props.options['sortable'] ? (
@@ -194,7 +204,7 @@ export default class Track extends React.Component {
                         ) }
                     </ul>
                 </Col>
-                <Col className="d-none d-md-block ml-auto" md="auto">
+                <Col className={mediumButtonClassNames} md="auto">
                     {/* Buttons for medium-sized screens */}
                     <Row noGutters>
                         {buttons.map((option, i) =>
@@ -213,26 +223,28 @@ export default class Track extends React.Component {
                         )}
                     </Row>
                 </Col>
-                <Col className="d-block d-md-none ml-auto" xs="auto">
-                    {/* Menu for small screens */}
-                    <Dropdown isOpen={this.state.menuOpen} toggle={this.toggleMenu} direction="left">
-                        <DropdownToggle className="btn-link border-0">
-                            <FontAwesomeIcon icon={faEllipsisV}/>
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            {buttons.map((option, i) =>
-                                <DropdownItem
-                                    key={"button" + i + this.props.track_id} 
-                                    id={"button" + i + this.props.track_id} 
-                                    onClick={option.onClick}
-                                    className="wrap-text"
-                                >
-                                    {option.tooltip}
-                                </DropdownItem>
-                            )}
-                        </DropdownMenu>
-                    </Dropdown>
-                </Col>
+                { !this.props.widgetView && (
+                    <Col className={smallButtonClassNames} xs="auto">
+                        {/* Menu for small screens */}
+                        <Dropdown isOpen={this.state.menuOpen} toggle={this.toggleMenu} direction="left">
+                            <DropdownToggle className="btn-link border-0">
+                                <FontAwesomeIcon icon={faEllipsisV}/>
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                {buttons.map((option, i) =>
+                                    <DropdownItem
+                                        key={"button" + i + this.props.track_id} 
+                                        id={"button" + i + this.props.track_id} 
+                                        onClick={option.onClick}
+                                        className="wrap-text"
+                                    >
+                                        {option.tooltip}
+                                    </DropdownItem>
+                                )}
+                            </DropdownMenu>
+                        </Dropdown>
+                    </Col>
+                ) }
             </Row>
         );
     }

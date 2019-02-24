@@ -30,7 +30,7 @@ export default class NowPlaying extends React.Component {
             <div className="disco-highlight border-top border-bottom py-2 mb-2">
                 <Container>
                     { this.props.currentTrack ? (                   
-                        <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} {...this.props.currentTrack}/>	
+                        <Track key={this.props.currentTrack.album_id + `-` + this.props.currentTrack.track_id} options={trackOptions} index={0} widgetView={this.props.widgetView} {...this.props.currentTrack}/>	
                     ): (
                         <Spinner />
                     ) }
