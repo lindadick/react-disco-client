@@ -7,7 +7,7 @@ import {APP_NAME, THEME} from 'discoConfig';
 switch(THEME) {
     case "dark":
         require("../stylesheets/widget-dark.scss");
-        document.querySelector("meta[name=theme-color]").setAttribute("content", "#000000");
+        document.querySelector("meta[name=theme-color]").setAttribute("content", "#292929");
         break;
     default:
         require("../stylesheets/widget-light.scss");

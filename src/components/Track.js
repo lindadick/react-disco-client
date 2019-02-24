@@ -154,7 +154,7 @@ export default class Track extends React.Component {
             });
         }
 
-        if (this.props.options['showAlbumLink']) {
+        if (this.props.options['showAlbumLink'] && !this.props.widgetView) {
             buttons.push({
                 onClick: this.showAlbumDetails,
                 tooltip: "View album",
