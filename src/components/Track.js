@@ -108,7 +108,7 @@ export default class Track extends React.Component {
         if (this.props.options['skip']) {
             if (this.state.skipping) {
                 buttons.push({
-                    tooltip: "Skipping track", //TODO make this a popover?
+                    tooltip: "Skipping track", //TODO make this an alert
                     icon: faHourglassHalf,
                     spin: true
                 })
@@ -125,26 +125,20 @@ export default class Track extends React.Component {
 
         if (this.props.online) {
             let icon = faHeartRegular
-            let color = ""
+            let buttonIcon = faHeartSolid
             let tooltip = "Add to shortlist"
             if (this.props.shortlist) {
                 icon = faHeartSolid
-                if (this.props.widgetView) {
-                    color = "#b58e31"
-                } else {
-                    color = "red"
-                }
+                buttonIcon = faHeartRegular
                 tooltip = "Remove from shortlist"
             }
             buttons.push({
                 onClick: this.toggleShortlist,
                 tooltip: tooltip,
-                icon: icon,
-                color: color
+                icon: buttonIcon
             });
             icons.push({
-                icon: icon,
-                color: color
+                icon: icon
             });
         } else {
             trackClassName = "text-muted";
@@ -215,7 +209,7 @@ export default class Track extends React.Component {
                                 key={"button" + i + this.props.track_id} 
                                 id={"button" + i + this.props.track_id} 
                                 onClick={option.onClick}
-                                data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips
+                                data-toggle="tooltip" data-placement="top" title={option.tooltip} //TODO use Bootstrap's fancy tooltips?
                                 >
                                 <FontAwesomeIcon key={"icon" + i + this.props.track_id} icon={option.icon} spin={option.spin} color={option.color}/>
                             </Button>
