@@ -28,6 +28,16 @@ export default class AlbumDetails extends React.Component {
         })
     }
 
+    formatDuration = (duration) => {
+        let formattedDuration = moment(duration, "mm:ss").format("m:ss")
+        if (formattedDuration === "Invalid date") {
+            // Moment doesn't like durations with more than 59 minutes.
+            // Fall back to raw value.
+            return duration;
+        }   
+        return duration;
+    }
+
     render() {
         return (
             <Row>
@@ -39,7 +49,7 @@ export default class AlbumDetails extends React.Component {
                             <h1>
                                 <span className="text-muted">Album Artist:</span> {this.state.album.artist}<br/>
                                 <span className="text-muted">Album Title:</span> {this.state.album.title}<br/>
-                                <span className="text-muted">Duration:</span> {moment(this.state.album.duration, "mm:ss").format("m:ss")}
+                                <span className="text-muted">Duration:</span> {this.formatDuration(this.state.album.duration)}
 
                             </h1>
                             { this.state.album.tracks.length > 0 ? (                   

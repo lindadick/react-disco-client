@@ -69,6 +69,14 @@ var disco = {
         axios.delete(API_URL + `/shortlist/` + album_id + '/' + track_id)
         .catch(err => console.log(err));
     },
+    addTrackToBanList: (album_id, track_id) => {
+        axios.post(API_URL + `/ban/` + album_id + '/' + track_id)
+        .catch(err => console.log(err));
+    },
+    removeTrackFromBanList: (album_id, track_id) => {
+        axios.delete(API_URL + `/ban/` + album_id + '/' + track_id)
+        .catch(err => console.log(err));
+    },
     skipToNextTrack: () => {
         return axios.post(API_URL + `/next`)
         .catch(err => console.log(err));

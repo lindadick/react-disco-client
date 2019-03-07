@@ -7,6 +7,7 @@ import { faBan } from '@fortawesome/free-solid-svg-icons/faBan'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc'
 import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons/faHeart'
+import { faHeartBroken } from '@fortawesome/free-solid-svg-icons/faHeartBroken'
 import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons/faHourglassHalf'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import { faStepForward } from '@fortawesome/free-solid-svg-icons/faStepForward'
@@ -32,7 +33,10 @@ export default class Track extends React.Component {
         this.removeFromCurrentPlaylist = this.removeFromCurrentPlaylist.bind(this);
         this.showAlbumDetails = this.showAlbumDetails.bind(this);
         this.skipCurrentTrack = this.skipCurrentTrack.bind(this);
-        this.toggleShortlist = this.toggleShortlist.bind(this);
+        this.addToShortlist = this.addToShortlist.bind(this);
+        this.removeFromShortlist = this.removeFromShortlist.bind(this);
+        this.addToBanList = this.addToBanList.bind(this);
+        this.removeFromBanList = this.removeFromBanList.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
     }
 
@@ -49,14 +53,34 @@ export default class Track extends React.Component {
         disco.removeTrackFromCurrentPlaylist(this.props.album_id, this.props.track_id);
     }
 
-    toggleShortlist() {
-        if (!this.props.shortlist) {
+    addToShortlist() {
+        if (confirm("Add this track to shortlist?")) {
+            //TODO use Reactstrap modal instead
             disco.addTrackToShortlist(this.props.album_id, this.props.track_id);
-        } else {
-            disco.removeTrackFromShortlist(this.props.album_id, this.props.track_id);
         }
     }
     
+    removeFromShortlist(e) {
+        if (confirm("Remove this track from shortlist?")) {
+            //TODO use Reactstrap modal instead
+            disco.removeTrackFromShortlist(this.props.album_id, this.props.track_id);
+        }
+    }
+
+    addToBanList() {
+        if (confirm("Remove this track from normal selection?")) {
+            //TODO use Reactstrap modal instead
+            disco.addTrackToBanList(this.props.album_id, this.props.track_id);
+        }
+    }
+
+    removeFromBanList() {
+        if (confirm("Add this track to normal selection?")) {
+            //TODO use Reactstrap modal instead
+            disco.removeTrackFromBanList(this.props.album_id, this.props.track_id);
+        }
+    }
+
     toggleMenu() {
         this.setState({menuOpen: !this.state.menuOpen});
     }
@@ -124,22 +148,39 @@ export default class Track extends React.Component {
         let trackClassName = "";
 
         if (this.props.online) {
-            let icon = faHeartRegular
-            let buttonIcon = faHeartSolid
-            let tooltip = "Add to shortlist"
             if (this.props.shortlist) {
-                icon = faHeartSolid
-                buttonIcon = faHeartRegular
-                tooltip = "Remove from shortlist"
+                buttons.push({
+                    onClick: this.removeFromShortlist,
+                    tooltip: "Remove from shortlist",
+                    icon: faHeartRegular
+                });
+                icons.push({
+                    icon: faHeartSolid
+                });
+            } else if (this.props.banned) {
+                buttons.push({
+                    onClick: this.removeFromBanList,
+                    tooltip: "Add to normal selection",
+                    icon: faHeartRegular
+                });
+                icons.push({
+                    icon: faHeartBroken
+                });
+            } else {
+                buttons.push({
+                    onClick: this.addToShortlist,
+                    tooltip: "Add to shortlist",
+                    icon: faHeartSolid
+                });
+                buttons.push({
+                    onClick: this.addToBanList,
+                    tooltip: "Remove from normal selection",
+                    icon: faHeartBroken
+                });
+                icons.push({
+                    icon: faHeartRegular
+                });
             }
-            buttons.push({
-                onClick: this.toggleShortlist,
-                tooltip: tooltip,
-                icon: buttonIcon
-            });
-            icons.push({
-                icon: icon
-            });
         } else {
             trackClassName = "text-muted";
             icons.push({
