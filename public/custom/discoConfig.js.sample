@@ -3,5 +3,6 @@ var discoConfig = {
     API_URL: 'http://192.168.1.10:5000',                // Hostname and port for the API endpoint
     PHP_URL: 'http://192.168.1.10/disco-console-php',   // Hostname for temporary, supplementary PHP endpoint
     ICECAST_URL: 'http://192.168.1.10:8000/disco.m3u',  // URL for the Icecast mount; omit to remove from menu
+    ART_URL: 'http://192.168.1.10/disco-art',           // URL for album art, remove to not display any art
     THEME: 'dark'                                       // UI theme; omit for default
 }

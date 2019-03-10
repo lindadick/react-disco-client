@@ -5,6 +5,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import moment from 'moment';
 
+import {ART_URL} from 'discoConfig';
 import disco from '../lib/disco';
 import TrackList from './TrackList';
 import Spinner from './Spinner';
@@ -40,21 +41,30 @@ export default class AlbumDetails extends React.Component {
 
     render() {
         return (
-            <Row>
-                <Col>
-                    {!this.state? (
-                        <Spinner />
-                    ) : (
-                        <React.Fragment>
-                            <h1>
-                                <span className="text-muted">Album Artist:</span> {this.state.album.artist}<br/>
-                                <span className="text-muted">Album Title:</span> {this.state.album.title}<br/>
-                                <span className="text-muted">Duration:</span> {this.formatDuration(this.state.album.duration)}
-
-                            </h1>
+            <React.Fragment>
+                {!this.state? (
+                    <Spinner />
+                ) : (
+                    <React.Fragment>
+                        <Row className="mb-3">
+                            { ART_URL && 
+                            <Col xs="auto">
+                                <img src={disco.getAlbumArtURL(this.state.album.album_id)} alt="" className="large-cover img-responsive img-fluid float-left mr-2 img-thumbnail"/>
+                            </Col>
+                            }
+                            <Col>
+                                <h1>
+                                    {this.state.album.artist}<br/>
+                                    {this.state.album.title}<br/>
+                                    {this.formatDuration(this.state.album.duration)}
+                                </h1>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
                             { this.state.album.tracks.length > 0 ? (                   
                                 <React.Fragment>
-                                    <TrackList tracks={this.state.album.tracks} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true, showAlbumLink: false}} />
+                                    <TrackList tracks={this.state.album.tracks} options={{sortable: false, addToPlaylist: true, showLastPlayed: false, showDuration: true, showAlbumLink: false, showAlbumArt: false}} />
                                     { this.state.album.allAdded ? (
                                         <Button disabled>
                                             <FontAwesomeIcon icon={faCheck} color="green" /> All tracks added to current playlist
@@ -68,10 +78,11 @@ export default class AlbumDetails extends React.Component {
                             ): (
                                 <p>No tracks found.</p>
                             ) }
-                        </React.Fragment>
-                    )}
-                </Col>
-            </Row>
+                            </Col>
+                        </Row>
+                    </React.Fragment>
+                )}
+            </React.Fragment>
         )
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons/faSort'
@@ -16,6 +16,7 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons/faHeart'
 import { Button, Col, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Row } from 'reactstrap';
 
+import {ART_URL} from 'discoConfig';
 import disco from '../lib/disco';
 
 export default class Track extends React.Component {
@@ -31,7 +32,6 @@ export default class Track extends React.Component {
 
         this.addToCurrentPlaylist = this.addToCurrentPlaylist.bind(this);
         this.removeFromCurrentPlaylist = this.removeFromCurrentPlaylist.bind(this);
-        this.showAlbumDetails = this.showAlbumDetails.bind(this);
         this.skipCurrentTrack = this.skipCurrentTrack.bind(this);
         this.addToShortlist = this.addToShortlist.bind(this);
         this.removeFromShortlist = this.removeFromShortlist.bind(this);
@@ -92,15 +92,7 @@ export default class Track extends React.Component {
         }));
     }
 
-    showAlbumDetails() {
-        this.setState({redirectToAlbumDetails: true});
-    }
-
     render() {
-        if (this.state.redirectToAlbumDetails) {
-            return <Redirect push to={"/albumdetails/" + this.props.album_id} />;
-        }
-
         // Build menu options
         let buttons = [];
         let icons = [];
@@ -189,14 +181,6 @@ export default class Track extends React.Component {
             });
         }
 
-        if (this.props.options['showAlbumLink'] && !this.props.widgetView) {
-            buttons.push({
-                onClick: this.showAlbumDetails,
-                tooltip: "View album",
-                icon: faCompactDisc
-            })
-        }
-
         let duration = "";
         if (this.props.options['showDuration']) {
             duration = moment(this.props.duration, "mm:ss").format("m:ss");
@@ -215,13 +199,20 @@ export default class Track extends React.Component {
 
         return (
             <Row className={this.props.rowClassName}>
-                { this.props.options['sortable'] ? (
+                { this.props.options['sortable'] &&
                     <Col xs="auto">
                         <FontAwesomeIcon icon={faSort}/>
                     </Col>
-                ) : null }
-                { this.props.options['showLastPlayed'] && <Col xs="auto">{moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}</Col> }
+                }
+                { this.props.options['showLastPlayed'] && 
+                    <Col xs="auto">
+                        {moment.unix(parseInt(this.props.last_play, 16)).format('H:mm')}
+                    </Col> 
+                }
                 <Col className={trackClassName}>
+                    { ART_URL && this.props.options['showAlbumArt'] &&
+                        <img src={disco.getAlbumArtURL(this.props.album_id)} alt="" className="small-cover img-thumbnail img-responsive img-fluid float-left mr-2"/>
+                    }
                     {this.props.artist} - {this.props.title}<br/>
                     <ul className="list-inline font-italic text-muted">
                         {icons.map((option, i) =>
@@ -256,6 +247,13 @@ export default class Track extends React.Component {
                             </Button>
                         </Col>
                         )}
+                        {this.props.options['showAlbumLink'] && !this.props.widgetView &&
+                            <Col key={"album_details" + this.props.track_id} className="p-1">
+                                <Link to={"/albumdetails/" + this.props.album_id} className="btn btn-secondary btn-block m-1" title="View album details">
+                                    <FontAwesomeIcon icon={faCompactDisc}/>
+                                </Link>
+                            </Col>
+                        }
                     </Row>
                 </Col>
                 { !this.props.widgetView && (
@@ -276,6 +274,11 @@ export default class Track extends React.Component {
                                         {option.tooltip}
                                     </DropdownItem>
                                 )}
+                                {this.props.options['showAlbumLink'] && !this.props.widgetView &&
+                                    <DropdownItem key={"album_details" + this.props.track_id} className="wrap-text" href={"#/albumdetails/" + this.props.album_id}>
+                                        View album details
+                                    </DropdownItem>
+                                }
                             </DropdownMenu>
                         </Dropdown>
                     </Col>

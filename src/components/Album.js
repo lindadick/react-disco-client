@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc'
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import moment from 'moment';
 
+import {ART_URL} from 'discoConfig';
 import disco from '../lib/disco';
 
 export default class Album extends React.Component {
@@ -55,6 +58,9 @@ export default class Album extends React.Component {
         return (
             <Row className={this.props.rowClassName}>
                 <Col xs="auto">
+                    { ART_URL &&
+                        <img src={disco.getAlbumArtURL(this.props.album_id)} alt="" className="small-cover img-thumbnail img-responsive img-fluid float-left mr-2"/>
+                    }
                     {this.props.artist} - {this.props.title}
                     <ul className="list-inline font-italic text-muted">
                         <li className="list-inline-item">
@@ -68,7 +74,7 @@ export default class Album extends React.Component {
                 <Col xs="auto" md="2" className="ml-auto">
                     <Row noGutters>
                         {buttons.map((option, i) =>
-                        <Col key={"buttoncol" + i + this.props.album_id}>
+                        <Col key={"buttoncol" + i + this.props.album_id} className="p-1">
                             <Button 
                                 type="button"
                                 className={"btn-block"} 
@@ -81,6 +87,13 @@ export default class Album extends React.Component {
                             </Button>
                         </Col>
                         )}
+                        {this.props.options['showAlbumLink'] &&
+                            <Col key={"album_details" + this.props.album_id} className="p-1">
+                                <Link to={"/albumdetails/" + this.props.album_id} className="btn btn-secondary btn-block" title="View album details">
+                                    <FontAwesomeIcon icon={faCompactDisc}/>
+                                </Link>
+                            </Col>
+                        }
                     </Row>
                 </Col>
             </Row>

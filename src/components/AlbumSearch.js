@@ -64,7 +64,7 @@ export default class AlbumSearch extends React.Component {
                     <div className="mt-3">
                         <h2>Search Results</h2>
                         {this.state.searchResults.map((album, i) =>
-                            <Album key={album.id} options={{sortable: false, addToPlaylist: true}} index={i} {...album} rowClassName="border-bottom py-1"/>	
+                            <Album key={album.id} options={{sortable: false, addToPlaylist: true, showAlbumLink: true}} index={i} {...album} rowClassName="border-bottom py-1"/>	
                         )}
                     </div>
                 )}

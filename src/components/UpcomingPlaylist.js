@@ -46,7 +46,7 @@ export default class UpcomingPlaylist extends React.Component {
                     <TrackList 
                         tracks={this.props.upcomingPlaylist} 
                         onSortEnd={this.onUpcomingPlaylistSortEnd} 
-                        options={{sortable: isSortable, removeFromPlaylist: true, showDuration: true, showAlbumLink: true}} 
+                        options={{sortable: isSortable, removeFromPlaylist: true, showDuration: true, showAlbumLink: true, showAlbumArt: true}} 
                     />
                 </div>
             );

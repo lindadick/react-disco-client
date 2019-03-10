@@ -23,7 +23,8 @@ export default class NowPlaying extends React.Component {
             sortable: false,
             skip: true,
             showDuration: true,
-            showAlbumLink: true
+            showAlbumLink: true,
+            showAlbumArt: true
         };
 
         return (
