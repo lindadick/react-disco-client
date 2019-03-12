@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import {ART_URL} from 'discoConfig';
 import disco from '../lib/disco';
+import AlbumArt from './AlbumArt';
 import TrackList from './TrackList';
 import Spinner from './Spinner';
 
@@ -49,7 +50,7 @@ export default class AlbumDetails extends React.Component {
                         <Row className="mb-3">
                             { ART_URL && 
                             <Col xs="auto">
-                                <img src={disco.getAlbumArtURL(this.state.album.album_id)} alt="" className="large-cover img-responsive img-fluid float-left mr-2 img-thumbnail"/>
+                                <AlbumArt id={this.state.album.album_id} size="large" linkToAlbum={false} displayModal={true} />
                             </Col>
                             }
                             <Col>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {API_URL, ART_URL, PHP_URL} from 'discoConfig';
+import {API_URL, PHP_URL} from 'discoConfig';
 
 var disco = {
     getCurrentPlaylist: () => {
@@ -95,9 +95,6 @@ var disco = {
         }
         return axios.post(url)
         .catch(err => console.log(err));
-    },
-    getAlbumArtURL: (album_id) => {
-        return ART_URL + "/" + album_id.toString().padStart(4, "0") + ".png"
     }
 }
 

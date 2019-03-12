@@ -8,6 +8,9 @@ $text-muted: darken($body-color, 20%);
 $input-bg: darken($secondary, 10%);
 $input-color: $body-color;
 $input-border-color: $input-bg;
+$modal-content-bg: $secondary;
+$close-color: $body-color;
+$close-text-shadow: $text-muted;
 
 @import "_disco.scss";
 

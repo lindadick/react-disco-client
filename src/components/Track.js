@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons/faSort'
@@ -18,6 +18,7 @@ import { Button, Col, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Row 
 
 import {ART_URL} from 'discoConfig';
 import disco from '../lib/disco';
+import AlbumArt from './AlbumArt';
 
 export default class Track extends React.Component {
 
@@ -211,7 +212,7 @@ export default class Track extends React.Component {
                 }
                 <Col className={trackClassName}>
                     { ART_URL && this.props.options['showAlbumArt'] &&
-                        <img src={disco.getAlbumArtURL(this.props.album_id)} alt="" className="small-cover img-thumbnail img-responsive img-fluid float-left mr-2"/>
+                        <AlbumArt id={this.props.album_id} linkToAlbum={this.props.options['showAlbumLink'] && !this.props.widgetView} />
                     }
                     {this.props.artist} - {this.props.title}<br/>
                     <ul className="list-inline font-italic text-muted">
