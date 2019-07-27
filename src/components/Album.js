@@ -57,7 +57,7 @@ export default class Album extends React.Component {
         }
 
         return (
-            <Row className={this.props.rowClassName}>
+            <Row className={`no-gutters ${this.props.rowClassName}`}>
                 <Col xs="auto">
                     { ART_URL &&
                         <AlbumArt id={this.props.album_id} linkToAlbum={this.props.options['showAlbumLink']} />

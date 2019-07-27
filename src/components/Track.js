@@ -199,9 +199,9 @@ export default class Track extends React.Component {
         }
 
         return (
-            <Row className={this.props.rowClassName}>
+            <Row className={`no-gutters ${this.props.rowClassName}`}>
                 { this.props.options['sortable'] &&
-                    <Col xs="auto">
+                    <Col xs="auto" className="mr-2">
                         <FontAwesomeIcon icon={faSort}/>
                     </Col>
                 }

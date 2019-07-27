@@ -16,7 +16,7 @@ import {
 import disco from '../lib/disco';
 
 import TrackSearch from './TrackSearch';
-import AlbumSearch from './AlbumSearch';
+import Albums from './Albums';
 import AlbumDetails from './AlbumDetails';
 import History from './History';
 import NowPlaying from './NowPlaying';
@@ -95,7 +95,7 @@ export default class App extends React.Component {
                             <Switch>
                                 <Route exact path='/' component={() => (<UpcomingPlaylist upcomingPlaylist={this.state.upcomingPlaylist} refreshCallback={this.props.refreshData}/>)}/> />
                                 <Route path="/search" component={TrackSearch} />
-                                <Route path="/albums" component={AlbumSearch} />
+                                <Route path="/albums" component={Albums} />
                                 <Route path="/playlists" component={Playlists} />
                                 <Route path="/modes" component={Modes} />
                                 <Route exact path="/albumdetails/:id" component={AlbumDetails} />

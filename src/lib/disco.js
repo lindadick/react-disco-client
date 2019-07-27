@@ -13,6 +13,11 @@ var disco = {
         .then(res => res.data)
         .catch(err => console.log(err));
     },
+    getAllAlbums: () => {
+        return axios.get(API_URL + `/albums?artist=`)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    },
     getAllPlaylists: () => {
         return axios.get(PHP_URL + `/get_playlists.php`)
         .then(res => res.data)

@@ -29,3 +29,17 @@ $close-text-shadow: $text-muted;
         }
     }
 }
+
+.nav-tabs {
+    border-bottom: 1px solid $secondary;
+
+    a.nav-link {
+        color: $primary;
+    }
+
+    .nav-link.active, .nav-item.show .nav-link {
+        border-color: $secondary;
+        border-bottom-color: transparent;
+        color: $body-color;
+    }
+}
