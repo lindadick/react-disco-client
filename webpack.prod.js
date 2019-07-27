@@ -1,8 +1,8 @@
-const merge = require('webpack-merge');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const merge = require('webpack-merge')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const common = require('./webpack.common.js');
+const common = require('./webpack.common.js')
 
 module.exports = merge(common, {
     mode: 'production',
@@ -15,8 +15,8 @@ module.exports = merge(common, {
                 cache: true,
                 parallel: true,
                 extractComments: 'all',
-                sourceMap: true // set to true if you want JS source maps
+                sourceMap: true, // set to true if you want JS source maps
             }),
-        ]
+        ],
     },
-});
+})
