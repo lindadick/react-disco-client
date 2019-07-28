@@ -6,13 +6,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
+// eslint-disable-next-line import/no-unresolved
 import { ART_URL } from 'discoConfig'
 import disco from '../lib/disco'
 import AlbumArt from './AlbumArt'
 import TrackList from './TrackList'
 import Spinner from './Spinner'
 
-// TODO: rewrite this component to work properly! Relying on routing doesn't work. Maybe combine with Album.jsx?
 export default class AlbumDetails extends React.Component {
     constructor(props) {
         super(props)
@@ -22,6 +22,14 @@ export default class AlbumDetails extends React.Component {
     }
 
     componentDidMount() {
+        this.getAlbumDetails()
+    }
+
+    componentDidUpdate() {
+        this.getAlbumDetails()
+    }
+
+    getAlbumDetails() {
         const { match } = this.props
         disco.getAlbumDetails(match.params.id).then((data) => this.setState({ album: data }))
     }
@@ -55,16 +63,6 @@ export default class AlbumDetails extends React.Component {
                 ) : (
                     <React.Fragment>
                         <Row className="mb-3">
-                            {ART_URL && (
-                                <Col xs="auto">
-                                    <AlbumArt
-                                        id={album.album_id}
-                                        size="large"
-                                        linkToAlbum={false}
-                                        displayModal
-                                    />
-                                </Col>
-                            )}
                             <Col>
                                 <h1>
                                     {album.artist}
@@ -74,6 +72,16 @@ export default class AlbumDetails extends React.Component {
                                     {this.formatDuration(album.duration)}
                                 </h1>
                             </Col>
+                            {ART_URL && (
+                                <Col xs="3" className="text-right">
+                                    <AlbumArt
+                                        id={album.album_id}
+                                        size="large"
+                                        linkToAlbum={false}
+                                        displayModal
+                                    />
+                                </Col>
+                            )}
                         </Row>
                         <Row>
                             <Col>

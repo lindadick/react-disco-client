@@ -17,6 +17,7 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons/f
 import { Button, Col, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Row } from 'reactstrap'
 import PropTypes from 'prop-types'
 
+// eslint-disable-next-line import/no-unresolved
 import { ART_URL } from 'discoConfig'
 import disco from '../lib/disco'
 import AlbumArt from './AlbumArt'
@@ -222,24 +223,25 @@ export default class Track extends React.Component {
         return (
             <Row className={`no-gutters ${rowClassName}`}>
                 {options.sortable && (
-                    <Col xs="auto" className="mr-2">
+                    <Col xs="auto" className="pr-2">
                         <FontAwesomeIcon icon={faSort} />
                     </Col>
                 )}
                 {options.showLastPlayed && (
-                    <Col xs="auto" className="mr-2">
+                    <Col xs="auto" className="pr-2">
                         {moment.unix(parseInt(last_play, 16)).format('H:mm')}
                     </Col>
                 )}
-                <Col className={trackClassName}>
-                    {ART_URL && options.showAlbumArt && (
+                {ART_URL && (
+                    <Col xs="2" sm="1" className="pr-2">
                         <AlbumArt
                             id={album_id}
                             linkToAlbum={options.showAlbumLink && !widgetView}
                         />
-                    )}
+                    </Col>
+                )}
+                <Col className={`pr-2 ${trackClassName}`}>
                     {artist} - {title}
-                    <br />
                     <ul className="list-inline font-italic text-muted">
                         {icons.map((option) => (
                             <li className="list-inline-item">
@@ -295,7 +297,7 @@ export default class Track extends React.Component {
                     </Row>
                 </Col>
                 {!widgetView && (
-                    <Col className={smallButtonClassNames} xs="auto">
+                    <Col className={smallButtonClassNames} xs="1">
                         {/* Menu for small screens */}
                         <Dropdown isOpen={menuOpen} toggle={this.toggleMenu} direction="left">
                             <DropdownToggle className="btn-link border-0">

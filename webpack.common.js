@@ -10,14 +10,14 @@ module.exports = {
         widget: './src/widget.jsx',
     },
     output: {
-        path: path.resolve(__dirname + '/public/assets'),
+        path: path.resolve(`${__dirname}/public/assets`),
         filename: '[name].bundle.js',
         publicPath: 'assets',
     },
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    plugins: [new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /uk|us/)],
+    plugins: [new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /uk|us/)],
     module: {
         rules: [
             {
@@ -45,10 +45,12 @@ module.exports = {
                             'transform-imports',
                             {
                                 reactstrap: {
+                                    // eslint-disable-next-line no-template-curly-in-string
                                     transform: 'reactstrap/lib/${member}',
                                     preventFullImport: true,
                                 },
                                 'react-router-dom': {
+                                    // eslint-disable-next-line no-template-curly-in-string
                                     transform: 'react-router-dom/${member}',
                                     preventFullImport: true,
                                 },

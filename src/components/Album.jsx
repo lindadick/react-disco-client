@@ -9,6 +9,7 @@ import moment from 'moment'
 
 import PropTypes from 'prop-types'
 
+// eslint-disable-next-line import/no-unresolved
 import { ART_URL } from 'discoConfig'
 import disco from '../lib/disco'
 import AlbumArt from './AlbumArt'
@@ -30,7 +31,7 @@ export default class Album extends React.Component {
     }
 
     render() {
-        const { album_id, artist, duration, options, rowClassName, title, trackCount } = this.props
+        const { album_id, artist, duration, options, rowClassName, title, track_count } = this.props
         const { added } = this.state
 
         // Build menu options
@@ -61,20 +62,24 @@ export default class Album extends React.Component {
 
         return (
             <Row className={`no-gutters ${rowClassName}`}>
-                <Col xs="auto">
-                    {ART_URL && <AlbumArt id={album_id} linkToAlbum={options.showAlbumLink} />}
+                {ART_URL && (
+                    <Col xs="2" sm="1" className="pr-2">
+                        <AlbumArt id={album_id} linkToAlbum={options.showAlbumLink} />
+                    </Col>
+                )}
+                <Col className="pr-2">
                     {artist}
                     {' - '}
                     {title}
                     <ul className="list-inline font-italic text-muted">
                         <li className="list-inline-item">{duration}</li>
                         <li className="list-inline-item">
-                            {trackCount}
+                            {track_count}
                             {' tracks'}
                         </li>
                     </ul>
                 </Col>
-                <Col xs="auto" md="2" className="ml-auto">
+                <Col xs="2" sm="2" className="ml-auto">
                     <Row noGutters>
                         {buttons.map((option) => (
                             <Col key={`buttoncol${album_id}`} className="p-1">
@@ -122,5 +127,5 @@ Album.propTypes = {
     rowClassName: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    trackCount: PropTypes.number.isRequired,
+    track_count: PropTypes.number.isRequired,
 }

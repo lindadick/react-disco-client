@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios'
 
+// eslint-disable-next-line import/no-unresolved
 import { API_URL, PHP_URL } from 'discoConfig'
 
 const disco = {

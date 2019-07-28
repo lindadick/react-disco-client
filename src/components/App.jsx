@@ -13,6 +13,7 @@ import {
     Row,
 } from 'reactstrap'
 
+// eslint-disable-next-line import/no-unresolved
 import { APP_NAME, ICECAST_URL, THEME } from 'discoConfig'
 import disco from '../lib/disco'
 

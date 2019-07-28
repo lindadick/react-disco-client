@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+// eslint-disable-next-line import/no-unresolved
 import { ART_URL } from 'discoConfig'
 import { Modal, ModalBody } from 'reactstrap'
 
@@ -38,7 +39,7 @@ export default class AlbumArt extends React.Component {
                     <img
                         src={albumArtURL}
                         alt=""
-                        className={`${extraClassNames} img-thumbnail img-responsive img-fluid float-left mr-2`}
+                        className={`${extraClassNames} img-thumbnail img-fluid`}
                     />
                 </Link>
             )
@@ -61,7 +62,7 @@ export default class AlbumArt extends React.Component {
                         src={albumArtURL}
                         role="presentation"
                         alt=""
-                        className={`${extraClassNames} img-thumbnail img-responsive img-fluid float-left mr-2`}
+                        className={`${extraClassNames} img-thumbnail img-fluid`}
                     />
                 </React.Fragment>
             )
@@ -70,7 +71,7 @@ export default class AlbumArt extends React.Component {
             <img
                 src={albumArtURL}
                 alt=""
-                className={`${extraClassNames} img-thumbnail img-responsive img-fluid float-left mr-2`}
+                className={`${extraClassNames} img-thumbnail img-fluid`}
             />
         )
     }
