@@ -4,16 +4,32 @@ import axios from 'axios'
 // eslint-disable-next-line import/no-unresolved
 import { API_URL, PHP_URL } from 'discoConfig'
 
-function removeDuplicates(jsonArray) {
+function removeDuplicates(jsonArray, dataType) {
     // Temporary utility to work around a bug in the Disco API
-    return [...new Set(jsonArray)]
+    // Idea taken from https://stackoverflow.com/questions/23507853/remove-duplicate-objects-from-json-array
+    switch (dataType) {
+        case 'album':
+            return jsonArray.filter(
+                (arr, index, self) => index === self.findIndex((t) => t.album_id === arr.album_id),
+            )
+        case 'track':
+            return jsonArray.filter(
+                (arr, index, self) =>
+                    index ===
+                    self.findIndex(
+                        (t) => t.track_id === arr.track_id && t.album_id === arr.album_id,
+                    ),
+            )
+        default:
+            return jsonArray
+    }
 }
 
 const disco = {
     getCurrentPlaylist: () => {
         return axios
             .get(`${API_URL}/playing`)
-            .then((res) => removeDuplicates(res.data))
+            .then((res) => res.data)
             .catch((err) => console.log(err))
     },
     getCurrentMode: () => {
@@ -25,7 +41,7 @@ const disco = {
     getAllAlbums: () => {
         return axios
             .get(`${API_URL}/albums?artist=`)
-            .then((res) => removeDuplicates(res.data))
+            .then((res) => removeDuplicates(res.data), 'album')
             .catch((err) => console.log(err))
     },
     getAllPlaylists: () => {
@@ -43,13 +59,13 @@ const disco = {
     searchForTracks: (artist, title) => {
         return axios
             .get(`${API_URL}/tracks?artist=${artist.trim()}&title=${title.trim()}`)
-            .then((res) => removeDuplicates(res.data))
+            .then((res) => removeDuplicates(res.data, 'track'))
             .catch((err) => console.log(err))
     },
     searchForAlbums: (artist, title) => {
         return axios
             .get(`${API_URL}/albums?artist=${artist.trim()}&title=${title.trim()}`)
-            .then((res) => removeDuplicates(res.data))
+            .then((res) => removeDuplicates(res.data, 'album'))
             .catch((err) => console.log(err))
     },
     getAlbumDetails: (album_id) => {
