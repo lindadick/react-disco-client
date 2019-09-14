@@ -4,11 +4,16 @@ import axios from 'axios'
 // eslint-disable-next-line import/no-unresolved
 import { API_URL, PHP_URL } from 'discoConfig'
 
+function removeDuplicates(jsonArray) {
+    // Temporary utility to work around a bug in the Disco API
+    return [...new Set(jsonArray)]
+}
+
 const disco = {
     getCurrentPlaylist: () => {
         return axios
             .get(`${API_URL}/playing`)
-            .then((res) => res.data)
+            .then((res) => removeDuplicates(res.data))
             .catch((err) => console.log(err))
     },
     getCurrentMode: () => {
@@ -20,7 +25,7 @@ const disco = {
     getAllAlbums: () => {
         return axios
             .get(`${API_URL}/albums?artist=`)
-            .then((res) => res.data)
+            .then((res) => removeDuplicates(res.data))
             .catch((err) => console.log(err))
     },
     getAllPlaylists: () => {
@@ -38,13 +43,13 @@ const disco = {
     searchForTracks: (artist, title) => {
         return axios
             .get(`${API_URL}/tracks?artist=${artist.trim()}&title=${title.trim()}`)
-            .then((res) => res.data)
+            .then((res) => removeDuplicates(res.data))
             .catch((err) => console.log(err))
     },
     searchForAlbums: (artist, title) => {
         return axios
             .get(`${API_URL}/albums?artist=${artist.trim()}&title=${title.trim()}`)
-            .then((res) => res.data)
+            .then((res) => removeDuplicates(res.data))
             .catch((err) => console.log(err))
     },
     getAlbumDetails: (album_id) => {
