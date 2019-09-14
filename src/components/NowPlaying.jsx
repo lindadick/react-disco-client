@@ -6,7 +6,7 @@ import Track from './Track'
 import Spinner from './Spinner'
 
 export default function NowPlaying(props) {
-    const { currentTrack, appName, updateTitle, widgetView } = props
+    const { appName, currentTrack, updateTitle, widgetView } = props
 
     updateTitle(currentTrack, appName)
 

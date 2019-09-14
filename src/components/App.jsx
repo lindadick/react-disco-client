@@ -20,11 +20,14 @@ import disco from '../lib/disco'
 import TrackSearch from './TrackSearch'
 import Albums from './Albums'
 import AlbumDetails from './AlbumDetails'
+import GenericAlert from './GenericAlert'
 import History from './History'
 import NowPlaying from './NowPlaying'
 import Modes from './Modes'
 import Playlists from './Playlists'
 import UpcomingPlaylist from './UpcomingPlaylist'
+
+import AppContext from './contexts/AppContext'
 
 switch (THEME) {
     case 'dark':
@@ -38,6 +41,8 @@ switch (THEME) {
 }
 
 export default class App extends React.Component {
+    appContextProviderValue
+
     constructor(props) {
         super(props)
 
@@ -45,6 +50,11 @@ export default class App extends React.Component {
             currentTrack: null,
             currentPlaylist: [],
             upcomingPlaylist: [],
+            pendingAlerts: [],
+        }
+
+        this.appContextProviderValue = {
+            addAlert: this.addAlert,
         }
     }
 
@@ -60,6 +70,12 @@ export default class App extends React.Component {
     onError = (error) => {
         // eslint-disable-next-line no-console
         console.log(error)
+    }
+
+    addAlert = (alert) => {
+        const { pendingAlerts } = this.state
+        pendingAlerts.push(alert)
+        this.setState(pendingAlerts)
     }
 
     refreshData = () => {
@@ -90,15 +106,28 @@ export default class App extends React.Component {
     }
 
     render() {
-        const { currentTrack, upcomingPlaylist } = this.state
+        const { currentTrack, pendingAlerts, upcomingPlaylist } = this.state
         return (
-            <React.Fragment>
+            <AppContext.Provider value={this.appContextProviderValue}>
                 <AppMenu />
                 <NowPlaying
                     currentTrack={currentTrack}
                     updateTitle={this.updateDocumentTitle}
                     appName={APP_NAME}
                 />
+                <Container className="sticky-top text-center centered-alert-wrapper">
+                    <GenericAlert key="1" messageText="temp alert" messageType="info" />
+                    {pendingAlerts.map((alert) => {
+                        const key = new Date()
+                        return (
+                            <GenericAlert
+                                key={key.toTimeString()}
+                                messageText={alert.text}
+                                messageType={alert.type}
+                            />
+                        )
+                    })}
+                </Container>
                 <Container>
                     <Row>
                         <Col className="mb-3">
@@ -131,7 +160,7 @@ export default class App extends React.Component {
                         </span>
                     </Container>
                 </div>
-            </React.Fragment>
+            </AppContext.Provider>
         )
     }
 }

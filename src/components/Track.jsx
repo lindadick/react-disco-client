@@ -22,6 +22,8 @@ import { ART_URL } from 'discoConfig'
 import disco from '../lib/disco'
 import AlbumArt from './AlbumArt'
 
+import AppContext from './contexts/AppContext'
+
 export default class Track extends React.Component {
     constructor(props) {
         super(props)
@@ -34,13 +36,20 @@ export default class Track extends React.Component {
     }
 
     addToCurrentPlaylist = () => {
-        const { online, album_id, track_id } = this.props
+        const { online, album_id, artist, track_id, title } = this.props
+        const { addAlert } = this.context
         if (online) {
-            disco.addTrackToCurrentPlaylist(album_id, track_id).then((data) =>
-                this.setState({
-                    added: data.status === 200,
-                }),
-            )
+            disco.addTrackToCurrentPlaylist(album_id, track_id).then((data) => {
+                if (data.status === 200) {
+                    addAlert({
+                        text: `Added ${artist} - ${title} to current playlist`,
+                        type: 'success',
+                    })
+                    this.setState({
+                        added: true,
+                    })
+                }
+            })
         }
     }
 
@@ -91,12 +100,18 @@ export default class Track extends React.Component {
     }
 
     skipCurrentTrack = () => {
-        disco.skipToNextTrack().then((data) =>
-            this.setState({
-                // TODO what to do when data is null?
-                skipping: data.status === 200,
-            }),
-        )
+        const { addAlert } = this.context
+        disco.skipToNextTrack().then((data) => {
+            if (data.status === 200) {
+                addAlert({
+                    text: `Skipping current track...`,
+                    type: 'info',
+                })
+                this.setState({
+                    skipping: true,
+                })
+            }
+        })
     }
 
     render() {
@@ -352,3 +367,5 @@ Track.defaultProps = {
     banned: false,
     widgetView: false,
 }
+
+Track.contextType = AppContext
