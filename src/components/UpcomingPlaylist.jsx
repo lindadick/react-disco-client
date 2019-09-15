@@ -62,12 +62,14 @@ export default class UpcomingPlaylist extends React.Component {
             )
         }
         return (
-            <React.Fragment>
-                <div className="text-muted font-italic">There are no upcoming tracks.</div>
-                <Link to="/search" className="btn btn-secondary">
-                    Search for tracks
-                </Link>
-            </React.Fragment>
+            <div>
+                <p className="text-muted">There are no upcoming tracks.</p>
+                <p>
+                    <Link to="/search" className="btn btn-secondary">
+                        Search for tracks
+                    </Link>
+                </p>
+            </div>
         )
     }
 }
