@@ -12,44 +12,62 @@ export default class History extends React.Component {
         super(props)
 
         this.state = {
-            history: [],
+            history: undefined,
+            retrievingHistory: true,
         }
     }
 
     componentDidMount() {
-        disco.getPlaylistHistory().then((data) =>
-            this.setState({
-                history: data.reverse(),
-            }),
+        this.interval = setInterval(() => this.refreshHistory(), 10000)
+        this.refreshHistory()
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval)
+    }
+
+    refreshHistory = () => {
+        this.setState({ retrievingHistory: true }, () =>
+            disco.getPlaylistHistory().then((data) =>
+                this.setState({
+                    history: data.reverse(),
+                    retrievingHistory: false,
+                }),
+            ),
         )
     }
 
     render() {
-        const { history } = this.state
-        const historyToDisplay = history ? history.slice(0, NUM_TRACKS_TO_SHOW) : []
-
+        const { history, retrievingHistory } = this.state
+        const historyToDisplay = history ? history.slice(0, NUM_TRACKS_TO_SHOW) : 0
         return (
             <Row>
                 <Col>
                     <h1>History</h1>
-                    {historyToDisplay.length > 0 ? (
-                        <>
-                            <p className="text-muted small">
-                                Displaying the last {historyToDisplay.length} tracks played.
-                            </p>
-                            <TrackList
-                                tracks={historyToDisplay}
-                                options={{
-                                    sortable: false,
-                                    addToPlaylist: true,
-                                    showLastPlayed: true,
-                                    showDuration: true,
-                                    showAlbumLink: true,
-                                }}
-                            />
-                        </>
-                    ) : (
+                    {!history && retrievingHistory ? (
                         <Spinner />
+                    ) : (
+                        <>
+                            {historyToDisplay.length > 0 ? (
+                                <>
+                                    <p className="text-muted small">
+                                        Displaying the last {historyToDisplay.length} tracks played.
+                                    </p>
+                                    <TrackList
+                                        tracks={historyToDisplay}
+                                        options={{
+                                            sortable: false,
+                                            addToPlaylist: true,
+                                            showLastPlayed: true,
+                                            showDuration: true,
+                                            showAlbumLink: true,
+                                        }}
+                                    />
+                                </>
+                            ) : (
+                                <p>The playlist history for today is currently empty.</p>
+                            )}
+                        </>
                     )}
                 </Col>
             </Row>
