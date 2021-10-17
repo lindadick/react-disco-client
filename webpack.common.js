@@ -70,11 +70,27 @@ module.exports = {
             },
             {
                 test: /\.jpe?g$|\.gif$|\.ico$|\.png$|\.svg$/,
-                use: 'file-loader?name=[name].[ext]?[hash]',
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '/fonts/[name].[ext]?[hash]',
+                            mimetype: 'application/font-otf'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 10000,
+                            mimetype: 'application/font-woff'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -82,7 +98,15 @@ module.exports = {
             },
             {
                 test: /\.otf(\?.*)?$/,
-                use: 'file-loader?name=/fonts/[name].  [ext]&mimetype=application/font-otf',
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '/fonts/[name].[ext]',
+                            mimetype: 'application/font-otf'
+                        }
+                    }
+                ]
             },
         ],
     },

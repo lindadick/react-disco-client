@@ -5,8 +5,6 @@ import disco from '../lib/disco'
 import TrackList from './TrackList'
 import Spinner from './Spinner'
 
-const NUM_TRACKS_TO_SHOW = 20
-
 export default class History extends React.Component {
     constructor(props) {
         super(props)
@@ -39,7 +37,6 @@ export default class History extends React.Component {
 
     render() {
         const { history, retrievingHistory } = this.state
-        const historyToDisplay = history ? history.slice(0, NUM_TRACKS_TO_SHOW) : 0
         return (
             <Row>
                 <Col>
@@ -48,13 +45,13 @@ export default class History extends React.Component {
                         <Spinner />
                     ) : (
                         <>
-                            {historyToDisplay.length > 0 ? (
+                            {history.length > 0 ? (
                                 <>
                                     <p className="text-muted small">
-                                        Displaying the last {historyToDisplay.length} tracks played.
+                                        Displaying the last {history.length} tracks played.
                                     </p>
                                     <TrackList
-                                        tracks={historyToDisplay}
+                                        tracks={history}
                                         options={{
                                             sortable: false,
                                             addToPlaylist: true,

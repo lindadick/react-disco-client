@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yarn build && cp -r public/* /var/www/html/disco/.
+npm run build && cp -r public/* /var/www/html/disco/.
