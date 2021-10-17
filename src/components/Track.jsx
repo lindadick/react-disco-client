@@ -229,7 +229,7 @@ export default class Track extends React.Component {
                 )}
                 {options.showLastPlayed && (
                     <Col xs="auto" className="pr-2">
-                        {moment.unix(parseInt(last_play, 16)).format('H:mm')}
+                        {moment(last_play).format('H:mm')}
                     </Col>
                 )}
                 {ART_URL && (
