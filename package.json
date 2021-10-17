@@ -65,5 +65,4 @@
     "author": "Linda Dick",
     "repository": "https://github.com/lindadick/react-disco-client.git",
     "license": "MIT",
-    "packageManager": "yarn@3.0.2"
 }
