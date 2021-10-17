@@ -28,7 +28,7 @@ export default class History extends React.Component {
         this.setState({ retrievingHistory: true }, () =>
             disco.getPlaylistHistory().then((data) =>
                 this.setState({
-                    history: data.reverse(),
+                    history: data,
                     retrievingHistory: false,
                 }),
             ),
